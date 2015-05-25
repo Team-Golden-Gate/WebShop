@@ -33,9 +33,7 @@
 
         public IDbSet<Promotion> Promotions { get; set; }
 
-        public IDbSet<State> States { get; set; }
-
-        public IDbSet<SubCategory> SubCategories { get; set; }
+        public IDbSet<State> States { get; set; }     
 
         public IDbSet<Trade> Trades { get; set; }
     }

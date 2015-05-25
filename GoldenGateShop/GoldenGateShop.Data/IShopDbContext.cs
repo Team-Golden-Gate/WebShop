@@ -24,9 +24,7 @@
 
         IDbSet<Promotion> Promotions { get; }
 
-        IDbSet<State> States { get; }
-
-        IDbSet<SubCategory> SubCategories { get; }
+        IDbSet<State> States { get; }        
 
         IDbSet<Trade> Trades { get; }
 

@@ -6,11 +6,11 @@
 
     public class Characteristic
     {
-        public ICollection<SubCategory> subCategory;
+        public ICollection<Category> category;
 
         public Characteristic()
         {
-            this.subCategory = new HashSet<SubCategory>();
+            this.category = new HashSet<Category>();
         }
 
         public int Id { get; set; }
@@ -22,10 +22,10 @@
 
         public int Position { get; set; }
 
-        public virtual ICollection<SubCategory> SubCategory
+        public virtual ICollection<Category> Category
         {
-            get { return this.subCategory; }
-            set { this.subCategory = value; }
+            get { return this.category; }
+            set { this.category = value; }
         }
     }
 }

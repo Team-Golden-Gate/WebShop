@@ -1,31 +1,88 @@
-﻿@{
+﻿@model GoldenGateShop.Web.ViewModels.Home.HomeViewModel
+@{
     ViewBag.Title = "Home Page";
+    var index = 0;
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+<div style="background-color:ActiveCaption">
+    <div class="row">
+        <div class="col-md-12 hidden-xs">
+            <div id="my-carousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#my-carousel" data-slide-to="0" class="active"></li>
+                    @foreach (var product in this.Model.CarouselProducts.Skip(1))
+                    {
+
+                        <li data-target="#my-carousel" data-slide-to=@(++index)></li>
+                    }
+                </ol>
+                <div class="carousel-inner">
+                    @{
+                        var first = this.Model.CarouselProducts.First();
+                        <div class="item active">
+                            @if (first.Picture == null)
+                            {
+                                <img src="~/Images/noimage.jpg" />
+                            }
+                            else
+                            {
+                                <img src=@first.Picture />
+                            }
+                            <div class="carousel-caption">
+                                <h3>@first.Name</h3>
+                                <p>@first.Price</p>
+                            </div>
+                        </div>
+
+                    }
+
+
+                    @foreach (var product in this.Model.CarouselProducts.Skip(1))
+                    {
+                        <div class="item">
+                            @if (product.Picture == null)
+                            {
+                                <img src="~/Images/noimage.jpg" />
+                            }
+                            else
+                            {
+                                <img src=@product.Picture />
+                            }
+                            <div class="carousel-caption">
+                                <h3>@product.Name</h3>
+                                <p>@product.Price</p>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <a class="left carousel-control" href="#my-carousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#my-carousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 
+
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+    <p>
+        <h2>Promotions</h2>
+        @Html.DisplayFor(x => x.PromotionProducts)
+    </p>
+</div>
+<div class="row">
+    <p>
+        <h2>Newest Products</h2>
+        @Html.DisplayFor(x => x.NewestProducts)
+    </p>
+</div>
+<div class="row">
+    <p>
+        <h2>Hot today</h2>
+        @Html.DisplayFor(x => x.RandomProducts)
+    </p>
 </div>

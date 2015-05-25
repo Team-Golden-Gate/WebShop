@@ -26,9 +26,7 @@ namespace GoldenGateShop.Data.UnitOfWork
 
         IRepository<Promotion> Promotions { get; }
 
-        IRepository<State> States { get; }
-
-        IRepository<SubCategory> SubCategories { get; }
+        IRepository<State> States { get; }      
 
         IRepository<Trade> Trades { get; }
 

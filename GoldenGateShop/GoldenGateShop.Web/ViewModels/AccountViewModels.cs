@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GoldenGateShop.Web.Models
+namespace GoldenGateShop.Web.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {

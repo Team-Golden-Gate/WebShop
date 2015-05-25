@@ -109,15 +109,7 @@
             {
                 return this.GetRepository<State>();
             }
-        }
-
-        public IRepository<SubCategory> SubCategories
-        {
-            get
-            {
-                return this.GetRepository<SubCategory>();
-            }
-        }
+        }       
 
         public IRepository<Trade> Trades
         {

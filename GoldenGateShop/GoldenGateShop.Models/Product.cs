@@ -26,6 +26,8 @@
 
         public decimal Price { get; set; }
 
+        public string Description { get; set; }
+
         public int Quantity { get; set; }
 
         public virtual ICollection<ProductCharacteristic> ProductCharacteristics
@@ -41,11 +43,7 @@
 
         public int CategoryId { get; set; }
 
-        public virtual Category Category { get; set; }
-
-        public int SubCategoryId { get; set; }
-
-        public virtual SubCategory SubCategory { get; set; }
+        public virtual Category Category { get; set; }      
 
         public int TradeId { get; set; }
 

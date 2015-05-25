@@ -40,3 +40,8 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+#my-carousel .carousel-inner img {
+    margin: 0 120px;
+    height: 300px;
+}

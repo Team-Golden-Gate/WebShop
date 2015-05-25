@@ -1,0 +1,42 @@
+﻿@model GoldenGateShop.Web.ViewModels.Home.ProductDataModel
+
+<div class="col-md-2">
+    <div class="product-block">
+        <div class="image ">
+            <div>
+                <a href="/Categories/@this.Model.Category/@this.Model.Name">
+                    @if (this.Model.Picture == null)
+                    {
+                        <img src="/images/noimage.jpg" class="img-rounded" width="150" height="150" hspace="10" vspace="10" />
+                    }
+                    else
+                    {
+                        <img class="img-rounded" src=@this.Model.Picture width="150" height="150" hspace="10" vspace="10" />
+                    }
+
+
+                </a>
+            </div>
+        </div>
+        <div class="product-meta">
+            <div class="left">
+                <h3 class="name">
+                    <a href="/Categories/@this.Model.Category/@this.Model.Name">@this.Model.Name</a>
+                </h3>
+                <p class="description">
+                    @this.Model.Description
+                </p>
+            </div>
+            <div class="right">
+                <div class="price">
+                    @this.Model.Price
+                </div>
+                <div class="cart">
+                    <button class="btn btn-default">
+                        <span>Add to Cart</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
