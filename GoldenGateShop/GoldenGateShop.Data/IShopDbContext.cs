@@ -10,7 +10,7 @@
 
         IDbSet<Category> Categories { get; }
 
-        IDbSet<Characteristic> Characteristics { get; }
+        IDbSet<CharacteristicType> Characteristics { get; }
 
         IDbSet<GlobalPromotion> GlobalPromotions { get; }
 

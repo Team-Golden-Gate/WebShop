@@ -4,85 +4,104 @@
     var index = 0;
 }
 
-<div style="background-color:ActiveCaption">
-    <div class="row">
-        <div class="col-md-12 hidden-xs">
-            <div id="my-carousel" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#my-carousel" data-slide-to="0" class="active"></li>
-                    @foreach (var product in this.Model.CarouselProducts.Skip(1))
-                    {
+<div class="carousel-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 hidden-xs">
+                <div id="my-carousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#my-carousel" data-slide-to="0" class="active"></li>
+                        @foreach (var product in this.Model.CarouselProducts.Skip(1))
+                        {
 
-                        <li data-target="#my-carousel" data-slide-to=@(++index)></li>
-                    }
-                </ol>
-                <div class="carousel-inner">
-                    @{
-                        var first = this.Model.CarouselProducts.First();
-                        <div class="item active">
-                            @if (first.Picture == null)
-                            {
-                                <img src="~/Images/noimage.jpg" />
-                            }
-                            else
-                            {
-                                <img src=@first.Picture />
-                            }
-                            <div class="carousel-caption">
-                                <h3>@first.Name</h3>
-                                <p>@first.Price</p>
+                            <li data-target="#my-carousel" data-slide-to=@(++index)></li>
+                        }
+                    </ol>
+                    <div class="carousel-inner">
+                        @{
+                            var first = this.Model.CarouselProducts.First();
+                            <div class="item active">
+                                @if (first.Picture == null)
+                                {
+                                    <img src="~/Images/noimage.jpg" />
+                                }
+                                else
+                                {
+                                    <img src=@first.Picture />
+                                }
+                                <div class="carousel-caption">
+                                    <h3>@first.Name</h3>
+                                    <p>@first.Price</p>
+                                </div>
                             </div>
-                        </div>
 
-                    }
+                        }
 
 
-                    @foreach (var product in this.Model.CarouselProducts.Skip(1))
-                    {
-                        <div class="item">
-                            @if (product.Picture == null)
-                            {
-                                <img src="~/Images/noimage.jpg" />
-                            }
-                            else
-                            {
-                                <img src=@product.Picture />
-                            }
-                            <div class="carousel-caption">
-                                <h3>@product.Name</h3>
-                                <p>@product.Price</p>
+                        @foreach (var product in this.Model.CarouselProducts.Skip(1))
+                        {
+                            <div class="item">
+                                @if (product.Picture == null)
+                                {
+                                    <img src="~/Images/noimage.jpg" />
+                                }
+                                else
+                                {
+                                    <img src=@product.Picture />
+                                }
+                                <div class="carousel-caption">
+                                    <h3>@product.Name</h3>
+                                    <p>@product.Price</p>
+                                </div>
                             </div>
-                        </div>
-                    }
+                        }
 
+                    </div>
+                    <a class="left carousel-control" href="#my-carousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#my-carousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
                 </div>
-                <a class="left carousel-control" href="#my-carousel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-                <a class="right carousel-control" href="#my-carousel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
             </div>
         </div>
     </div>
 </div>
 
 
-<div class="row">
-    <p>
-        <h2>Promotions</h2>
-        @Html.DisplayFor(x => x.PromotionProducts)
-    </p>
+
+<div class="promotion">
+    <div class="container">
+
+        <div class="row">
+            <h2>
+                <span class="label label-info">Promotions</span>
+            </h2>
+            @Html.DisplayFor(x => x.PromotionProducts)
+        </div>
+    </div>
 </div>
-<div class="row">
-    <p>
-        <h2>Newest Products</h2>
-        @Html.DisplayFor(x => x.NewestProducts)
-    </p>
+
+<div class="hot-products">
+    <div class="container">
+        <div class="row">
+            <h2>
+                <span class="label label-danger">Hot today</span>
+            </h2>
+            @Html.DisplayFor(x => x.RandomProducts)
+        </div>
+    </div>
 </div>
-<div class="row">
-    <p>
-        <h2>Hot today</h2>
-        @Html.DisplayFor(x => x.RandomProducts)
-    </p>
+
+<div class="new-products">
+    <div class="container">
+        <div class="row">
+            <h2>
+                <span class="label label-warning">Newest Products</span>
+            </h2>
+            @Html.DisplayFor(x => x.NewestProducts)
+        </div>
+    </div>
 </div>
+

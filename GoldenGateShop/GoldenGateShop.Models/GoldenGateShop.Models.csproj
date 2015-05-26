@@ -54,7 +54,8 @@
   <ItemGroup>
     <Compile Include="Cart.cs" />
     <Compile Include="Category.cs" />
-    <Compile Include="Characteristic.cs" />
+    <Compile Include="CharacteristicType.cs" />
+    <Compile Include="CharacteristicValue.cs" />
     <Compile Include="GlobalPromotion.cs" />
     <Compile Include="IndividualPromotion.cs" />
     <Compile Include="Order.cs" />

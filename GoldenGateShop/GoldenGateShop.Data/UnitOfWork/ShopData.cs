@@ -47,11 +47,11 @@
             }
         }
 
-        public IRepository<Characteristic> Characteristics
+        public IRepository<CharacteristicType> Characteristics
         {
             get
             {
-                return this.GetRepository<Characteristic>();
+                return this.GetRepository<CharacteristicType>();
             }
         }
 

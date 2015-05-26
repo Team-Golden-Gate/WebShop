@@ -4,15 +4,17 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Product
+    public class CharacteristicType
     {
+        private ICollection<Category> category;
         private ICollection<ProductCharacteristic> productCharacteristics;
-        private ICollection<IndividualPromotion> promotions;
+        private ICollection<CharacteristicValue> characteristicValue;
 
-        public Product()
+        public CharacteristicType()
         {
+            this.category = new HashSet<Category>();
+            this.characteristicValue = new HashSet<CharacteristicValue>();
             this.productCharacteristics = new HashSet<ProductCharacteristic>();
-            this.promotions = new HashSet<IndividualPromotion>();
         }
 
         public int Id { get; set; }
@@ -22,29 +24,24 @@
         [StringLength(50)]
         public string Name { get; set; }
 
-        public string Picture { get; set; }
+        public int Position { get; set; }
 
-        public decimal Price { get; set; }      
+        public virtual ICollection<Category> Category
+        {
+            get { return this.category; }
+            set { this.category = value; }
+        }
 
-        public int Quantity { get; set; }
+        public virtual ICollection<CharacteristicValue> CharacteristicValue
+        {
+            get { return this.characteristicValue; }
+            set { this.characteristicValue = value; }
+        }
 
         public virtual ICollection<ProductCharacteristic> ProductCharacteristics
         {
             get { return this.productCharacteristics; }
             set { this.productCharacteristics = value; }
         }
-        public virtual ICollection<IndividualPromotion> Promotions
-        {
-            get { return this.promotions; }
-            set { this.promotions = value; }
-        }
-
-        public int CategoryId { get; set; }
-
-        public virtual Category Category { get; set; }      
-
-        public int TradeId { get; set; }
-
-        public virtual Trade Trade { get; set; }
     }
 }

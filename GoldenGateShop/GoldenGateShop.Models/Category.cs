@@ -7,12 +7,12 @@
     public class Category
     {
         private ICollection<Product> products;
-        private ICollection<Characteristic> characteristics;
+        private ICollection<CharacteristicType> characteristicType;
 
         public Category()
         {
             this.products = new HashSet<Product>();
-            this.characteristics = new HashSet<Characteristic>();
+            this.characteristicType = new HashSet<CharacteristicType>();
         }
 
         public int Id { get; set; }
@@ -24,10 +24,10 @@
 
         public int Position { get; set; }
 
-        public virtual ICollection<Characteristic> Characteristics
+        public virtual ICollection<CharacteristicType> CharacteristicTypes
         {
-            get { return this.characteristics; }
-            set { this.characteristics = value; }
+            get { return this.characteristicType; }
+            set { this.characteristicType = value; }
         }
 
         public virtual ICollection<Product> Products

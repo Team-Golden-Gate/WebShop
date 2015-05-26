@@ -10,6 +10,7 @@
 
     public class HomeController : BaseController
     {
+        [OutputCache(Duration=15*60)]
         public ActionResult Index()
         {
             var carouselProducts = this.Data.Products.All()
@@ -21,18 +22,18 @@
             var promotionProducts = this.Data.Products.All()
                 .OrderByDescending(p => p.Id)
                 .Select(ProductDataModel.FromProduct)
-                 .Take(6);
+                 .Take(12);
 
             var newestProducts = this.Data.Products.All()
                 .OrderByDescending(p => p.Id)
                 .Select(ProductDataModel.FromProduct)
-                .Take(6)
+                .Take(12)
                 .ToList();
 
             var randomProducts = this.Data.Products.All()
                 .OrderByDescending(p => p.Id)
                 .Select(ProductDataModel.FromProduct)
-                .Take(6)
+                .Take(12)
                 .ToList();
 
             var viewModel = new HomeViewModel()

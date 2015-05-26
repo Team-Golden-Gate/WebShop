@@ -19,7 +19,7 @@
 
         public IDbSet<Category> Categories { get; set; }
 
-        public IDbSet<Characteristic> Characteristics { get; set; }
+        public IDbSet<CharacteristicType> Characteristics { get; set; }
 
         public IDbSet<GlobalPromotion> GlobalPromotions { get; set; }
 
@@ -33,8 +33,44 @@
 
         public IDbSet<Promotion> Promotions { get; set; }
 
-        public IDbSet<State> States { get; set; }     
+        public IDbSet<State> States { get; set; }
 
         public IDbSet<Trade> Trades { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CharacteristicType>()
+                .HasMany(c => c.CharacteristicValue)
+                .WithRequired(c => c.CharacteristicType)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<CharacteristicType>()
+                .HasMany(c => c.ProductCharacteristics)
+                .WithRequired(c => c.CharacteristicType)
+                .WillCascadeOnDelete(false);
+
+
+            modelBuilder.Entity<Category>()
+               .HasMany(c => c.CharacteristicTypes)
+               .WithMany(c => c.Category);
+
+            modelBuilder.Entity<ProductCharacteristic>()
+                .HasRequired(c => c.Product)
+                .WithMany(c => c.ProductCharacteristics)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ProductCharacteristic>()
+                .HasRequired(c => c.CharacteristicValue)
+                .WithMany(c => c.ProductCharacteristics)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ProductCharacteristic>()
+                .HasRequired(c => c.CharacteristicType)
+                .WithMany(c => c.ProductCharacteristics)
+                .WillCascadeOnDelete(false);
+
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

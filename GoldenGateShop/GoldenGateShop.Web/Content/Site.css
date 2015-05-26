@@ -41,7 +41,75 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+
+
+/*MENU*/
+
+.navbar-inverse {
+    background-color: #00BCF2;
+}
+
+
+    .navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
+        color: black;
+    }
+
+    .navbar-inverse .navbar-nav > li:hover, .navbar-inverse .navbar-nav > li:focus {
+        background-color: #b94a48;
+    }
+
+/*MAIN PAGE*/
+
 #my-carousel .carousel-inner img {
     margin: 0 120px;
     height: 300px;
+}
+
+
+div.carousel-container {
+    background-color: #f05f40;
+    padding: 20px 0;
+}
+
+div.promotion {
+    color: #3f9bb5;    
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 20px 0;
+    background-image: url('../Images/portfolio-2 (1).jpg');
+}
+
+
+
+
+div.hot-products {
+    background-color: #00BCF2;
+    padding: 20px 0;
+    color: #b94a48;
+}
+
+
+
+div.new-products {
+    color: white;  
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 20px 0;
+    background-image: url('../Images/header.jpg');
+}
+
+    div.hot-products h3 a, div.new-products h3 a {
+        color: rgba(0, 0, 0, 0.7);
+    }
+
+div.promotion h3 a {
+    color: #f05f40;
+}
+
+
+
+/*Product*/
+
+.description {
+    height: 80px;
 }

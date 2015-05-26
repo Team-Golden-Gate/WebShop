@@ -1,4 +1,4 @@
-﻿namespace GoldenGateShop.Web.ViewModels.Home
+﻿namespace GoldenGateShop.Web.ViewModels.Categories
 {
     using GoldenGateShop.Models;
     using System;
@@ -21,7 +21,13 @@
                     Description = p.ProductCharacteristics
                         .AsQueryable()
                         .Where(c => c.CharacteristicType.Name == "Short Description")
-                        .Select(c => c.CharacteristicValue.Description).FirstOrDefault()
+                        .Select(c => c.CharacteristicValue.Description),
+                    Characteristics = p.ProductCharacteristics
+                        .AsQueryable()
+                        .OrderBy(c => c.CharacteristicType.Position)
+                        .Select(ProductCharacteristicsDataModel.FromCharacteristics)
+                        .Take(4)
+
                 };
             }
         }
@@ -36,6 +42,8 @@
 
         public string Category { get; set; }
 
-        public string Description { get; set; }
+        public IQueryable<string> Description { get; set; }
+
+        public IQueryable<ProductCharacteristicsDataModel> Characteristics { get; set; }
     }
 }
