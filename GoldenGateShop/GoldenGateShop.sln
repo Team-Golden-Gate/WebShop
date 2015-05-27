@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenGateShop.Models", "Go
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenGateShop.Web", "GoldenGateShop.Web\GoldenGateShop.Web.csproj", "{DA8A81DF-A680-4A89-B330-9B0950B60572}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldenGateShop.Common", "GoldenGateShop.Common\GoldenGateShop.Common.csproj", "{D17D5944-9B37-48B8-929E-F5C0C9C9ED15}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{DA8A81DF-A680-4A89-B330-9B0950B60572}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA8A81DF-A680-4A89-B330-9B0950B60572}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA8A81DF-A680-4A89-B330-9B0950B60572}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D17D5944-9B37-48B8-929E-F5C0C9C9ED15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D17D5944-9B37-48B8-929E-F5C0C9C9ED15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D17D5944-9B37-48B8-929E-F5C0C9C9ED15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D17D5944-9B37-48B8-929E-F5C0C9C9ED15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,5 +51,6 @@ Global
 		{A2FAA1FD-7FCD-45DC-98B6-A70C2CBC5F62} = {C5EE5C5A-2A46-43EE-BE32-B7784E663C67}
 		{B62238D0-E9ED-4A0B-890A-12F6D1323AF2} = {C5EE5C5A-2A46-43EE-BE32-B7784E663C67}
 		{DA8A81DF-A680-4A89-B330-9B0950B60572} = {AD694CF1-9B9D-4EFB-A63A-37CC40DF5D13}
+		{D17D5944-9B37-48B8-929E-F5C0C9C9ED15} = {86C38A2C-4156-4BB3-BF9A-6200FAA38F47}
 	EndGlobalSection
 EndGlobal

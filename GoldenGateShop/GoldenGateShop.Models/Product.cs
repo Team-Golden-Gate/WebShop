@@ -1,5 +1,6 @@
 ﻿namespace GoldenGateShop.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -24,9 +25,11 @@
 
         public string Picture { get; set; }
 
-        public decimal Price { get; set; }      
+        public decimal Price { get; set; }
 
         public int Quantity { get; set; }
+
+        public DateTime CreatedAt { get; set; }
 
         public virtual ICollection<ProductCharacteristic> ProductCharacteristics
         {
@@ -41,7 +44,7 @@
 
         public int CategoryId { get; set; }
 
-        public virtual Category Category { get; set; }      
+        public virtual Category Category { get; set; }
 
         public int TradeId { get; set; }
 

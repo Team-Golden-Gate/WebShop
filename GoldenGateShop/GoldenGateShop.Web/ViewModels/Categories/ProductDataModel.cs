@@ -19,6 +19,7 @@
                     Picture = p.Picture,
                     Price = p.Price,
                     Category = p.Category.Name,
+                    Trade = p.Trade.Name,
                     Characteristics = p.ProductCharacteristics
                         .AsQueryable()
                         .OrderBy(c => c.CharacteristicType.Position)
@@ -39,5 +40,7 @@
         public string Category { get; set; }
 
         public IEnumerable<ProductCharacteristicsDataModel> Characteristics { get; set; }
+
+        public string Trade { get; set; }
     }
 }

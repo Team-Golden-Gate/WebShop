@@ -52,6 +52,7 @@ namespace GoldenGateShop.Data.Migrations
                         Quantity = 10,
                         Trade = trades[this.random.Next(0, trades.Count)],
                         Category = category,
+                        CreatedAt = DateTime.Now
                     };
 
                     foreach (var characteristic in category.CharacteristicTypes)

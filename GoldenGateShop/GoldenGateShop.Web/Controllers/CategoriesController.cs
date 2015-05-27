@@ -7,12 +7,15 @@
     using System.Web.Mvc;
     using System.Net;
 
+    using LinqKit;
+
     using GoldenGateShop.Web.ViewModels.Categories;
     using GoldenGateShop.Web.BindingModels;
+    using GoldenGateShop.Models;
 
     public class CategoriesController : BaseController
     {
-        private const int PageSize = 12;
+        private const int PageSize = 3;
         // GET: Categories
         public ActionResult Index(string categoryName, GetProductsBindingModel model)
         {
@@ -33,10 +36,16 @@
                 .Select(TradeDataModel.FromTrade)
                 .ToList();
 
-            var productCount = this.FilterProducts(categoryName, model).Count();
+            var products = this.FilterProducts(categoryName, model);
 
-            this.ViewBag.ProductCount = productCount;
+            this.ViewBag.ProductCount = products.Count();
             this.ViewBag.PageSize = PageSize;
+
+            var productRange = this.Data.Products.All()
+                .Where(p => p.Category.Name == categoryName);
+
+            this.ViewBag.MinPrice = productRange.Min(p => p.Price);
+            this.ViewBag.MaxPrice = productRange.Max(p => p.Price);
 
             var data = new CategoryViewModel()
             {
@@ -72,15 +81,15 @@
                 model.PageSize = PageSize;
             }
 
-            var dataCount = this.FilterProducts(categoryName, model);
+            var products = this.FilterProducts(categoryName, model);
 
             var skip = page * model.PageSize;
-            var data = dataCount
+            var data = products
                  .Skip(skip)
                  .Take(model.PageSize)
                  .ToList();
 
-            this.ViewBag.ProductCount = dataCount.Count();
+            this.ViewBag.ProductCount = products.Count();
             this.ViewBag.PageSize = PageSize;
 
             return this.PartialView("_GetProducts", data);
@@ -100,9 +109,19 @@
             var products = this.Data.Products.All()
                  .Where(p => p.Category.Name == categoryName);
 
-            if (model.TradeName != null)
+            if (model.TradeNames != null)
             {
-                products = products.Where(p => p.Trade.Name == model.TradeName);
+                // http://stackoverflow.com/questions/782339/how-to-dynamically-add-or-operator-to-where-clause-in-linq
+                var searchPredicate = PredicateBuilder.False<Product>();
+
+                foreach (var name in model.TradeNames)
+                {
+                    var closureVariable = name;
+                    searchPredicate =
+                      searchPredicate.Or(p => p.Trade.Name == closureVariable);
+                }
+
+                products = products.AsExpandable().Where(searchPredicate);
             }
 
             if (model.MinPrice.HasValue)
@@ -115,8 +134,33 @@
                 products = products.Where(p => p.Price <= model.MaxPrice.Value);
             }
 
-            var productsModel = products.OrderBy(p => p.Price)
-                 .Select(ProductDataModel.FromProduct);
+            if (model.OrderBy != null)
+            {
+                if (model.OrderBy == "By price asc")
+                {
+                    products = products.OrderBy(p => p.Price);
+                }
+                else if (model.OrderBy == "By price desc")
+                {
+                    products = products.OrderByDescending(p => p.Price);
+                }
+                else if (model.OrderBy == "Newest")
+                {
+                    products = products.OrderByDescending(p => p.Id);
+                }
+                else if (model.OrderBy == "Promotion")
+                {
+                    //TODO:
+                    products = products.OrderBy(p => p.Price);
+                }
+            }
+            else
+            {
+                products = products.OrderBy(p => p.Price);
+            }
+
+
+            var productsModel = products.Select(ProductDataModel.FromProduct);
 
             return productsModel;
         }
