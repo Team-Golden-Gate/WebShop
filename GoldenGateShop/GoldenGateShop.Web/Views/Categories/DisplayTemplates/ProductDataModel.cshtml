@@ -1,4 +1,4 @@
-﻿@model GoldenGateShop.Web.ViewModels.Home.ProductDataModel
+﻿@model GoldenGateShop.Web.ViewModels.Categories.ProductDataModel
 
 <div class="col-md-4 col-sm-6">
     <div class="product-block">
@@ -23,9 +23,24 @@
                 <h3 class="name">
                     <a href="/Categories/@this.Model.Category/@this.Model.Name">@this.Model.Name</a>
                 </h3>
-                <p class="description">
-                    @this.Model.Description
-                </p>
+
+                <ul class="full-description">
+                    @foreach (var characteristic in this.Model.Characteristics)
+                    {
+                        if (characteristic.Name == "Short Description")
+                        {
+                            <li>
+                                @characteristic.Description
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <strong>@characteristic.Name: </strong>@characteristic.Description
+                            </li>
+                        }
+                    }
+                </ul>
             </div>
             <div class="right">
                 <div class="price">

@@ -3,6 +3,10 @@
     padding-bottom: 20px;
 }
 
+html, body {
+    height: 100% !important;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -72,7 +76,7 @@ div.carousel-container {
 }
 
 div.promotion {
-    color: #3f9bb5;    
+    color: #3f9bb5;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 20px 0;
@@ -91,7 +95,7 @@ div.hot-products {
 
 
 div.new-products {
-    color: white;  
+    color: white;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 20px 0;
@@ -106,10 +110,14 @@ div.promotion h3 a {
     color: #f05f40;
 }
 
-
-
 /*Product*/
 
 .description {
     height: 80px;
+}
+
+.full-description {
+    height: 250px;
+    list-style: none;
+    padding:0
 }

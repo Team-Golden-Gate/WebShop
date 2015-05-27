@@ -210,6 +210,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BindingModels\GetProductsBindingModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
@@ -250,6 +251,7 @@
     <Content Include="Images\images %289%29.jpg" />
     <Content Include="Images\images.jpg" />
     <Content Include="Images\img-thing.jpg" />
+    <Content Include="Images\loading3.gif" />
     <Content Include="Images\noimage.jpg" />
     <Content Include="Images\portfolio-2 %281%29.jpg" />
     <Content Include="Scripts\bootstrap.js" />
@@ -306,6 +308,7 @@
     <Content Include="Views\Categories\Product.cshtml" />
     <Content Include="Views\Home\DisplayTemplates\ProductDataModel.cshtml" />
     <Content Include="Views\Categories\DisplayTemplates\ProductDataModel.cshtml" />
+    <Content Include="Views\Categories\_GetProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

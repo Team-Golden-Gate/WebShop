@@ -1,0 +1,13 @@
+﻿@model IEnumerable<GoldenGateShop.Web.ViewModels.Categories.ProductDataModel>
+
+@Html.DisplayFor(x => x)
+<script>
+    var app = app || {};
+    app.pageSize = @this.ViewBag.PageSize;
+    app.productCount =  @this.ViewBag.ProductCount;
+
+    console.log(app);
+
+    var span = $('<span>').text('(' + @this.ViewBag.ProductCount + ')');
+    $('#count').hide().html(span).fadeIn(500);
+</script>

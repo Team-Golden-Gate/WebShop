@@ -4,6 +4,7 @@
     using System;
     using System.Linq.Expressions;
     using System.Linq;
+    using System.Collections.Generic;
 
     public class ProductDataModel
     {
@@ -18,16 +19,11 @@
                     Picture = p.Picture,
                     Price = p.Price,
                     Category = p.Category.Name,
-                    Description = p.ProductCharacteristics
-                        .AsQueryable()
-                        .Where(c => c.CharacteristicType.Name == "Short Description")
-                        .Select(c => c.CharacteristicValue.Description),
                     Characteristics = p.ProductCharacteristics
                         .AsQueryable()
                         .OrderBy(c => c.CharacteristicType.Position)
                         .Select(ProductCharacteristicsDataModel.FromCharacteristics)
-                        .Take(4)
-
+                        .Take(5)
                 };
             }
         }
@@ -42,8 +38,6 @@
 
         public string Category { get; set; }
 
-        public IQueryable<string> Description { get; set; }
-
-        public IQueryable<ProductCharacteristicsDataModel> Characteristics { get; set; }
+        public IEnumerable<ProductCharacteristicsDataModel> Characteristics { get; set; }
     }
 }
