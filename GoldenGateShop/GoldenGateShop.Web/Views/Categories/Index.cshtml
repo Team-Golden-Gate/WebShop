@@ -1,224 +1,24 @@
-﻿@model GoldenGateShop.Web.ViewModels.Categories.CategoryViewModel
+﻿@model IEnumerable<string>
 @{
     ViewBag.Title = "Index";
 }
+
 <div class="container body-content">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="text-center">
-                @this.ViewBag.categoryName
-                <span id="count"></span>
-            </h1>
+            <h2 class="text-center">Categories</h2>
         </div>
-        <div class="col-md-3">
-            <h3>Order by:</h3>
-            <select class="form-control" id="order">
-                <option>By price asc</option>
-                <option>By price desc</option>
-                <option>Newest</option>
-                <option>Promotion</option>
-            </select>
-            <h3>Filters</h3>
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Trades
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body">
-                            <ul>
-                                @foreach (var trade in this.Model.Trades)
-                                {
-                                    <li>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="@trade.Name"
-                                                       class="trades"> @trade.Name
-                                                </label>
-                                            </div>
-                                        </li>
-                                }
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Price
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="panel-body">
-                            <div class="slide-range-holder">
-                                <p>
-                                    <label for="amount">Price range:</label>
-                                    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                                </p>
-
-                                <div id="slider-range"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingThree">
-                        <h4 class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Collapsible Group Item #3
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                        <div class="panel-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
+        @foreach (var categoryName in this.Model)
+        {
+            <div class="category col-md-4">
+                <a href="/Categories/@categoryName">
+                    <h2>
+                        @categoryName
+                    </h2>
+                </a>
             </div>
-        </div>
-        <div class="col-md-9">
-            <div id="product-container"></div>
-        </div>
-        <div id="loading" style="display:none; ">
-            <img src="~/Images/loading3.gif" width="50" />
-        </div>
+        }
+
     </div>
+
 </div>
-
-@section scripts{
-    <script>
-        var app = app || {};
-        app.pageSize = @this.ViewBag.PageSize;
-        app.productCount =  @this.ViewBag.ProductCount;
-        app.index = 0;
-        app.order =  $('#order').find(":selected").text();
-        app.minPrice = @this.ViewBag.MinPrice;
-        app.maxPrice = @this.ViewBag.MaxPrice;
-
-        $(function () {
-            $('#order').on('change', function ( ) {
-                app.index = 0;
-                app.order =  $('#order').find(":selected").text();
-                $('#product-container').html("");
-                getProducts();
-            });
-
-            $(window).ajaxStart(function () { $('#loading').show(); });
-            $(window).ajaxComplete(function () { $('#loading').hide(); });
-
-
-            function getProducts() {
-                var search = "";
-                if (!window.location.search) {
-                    search = '?orderBy='+ app.order;
-                }else {
-                    search = window.location.search +'&orderBy='+ app.order;
-                }
-
-                $.ajax({
-
-                    url: "/Categories/GetProducts/@this.ViewBag.categoryName/"
-                        + (app.index++) + search,
-                    method: "GET"
-                }).success(function (data) {
-                    var div = $('<div>').append(data).hide().fadeIn(500);
-                    $('#product-container').append(div);
-                });
-
-            }
-
-            getProducts();
-
-            var numPages = Math.ceil(app.productCount / app.pageSize) - 1;
-
-            $(window).scroll(function (e) {
-                var body = document.body;
-                var scrollTop = this.pageYOffset || body.scrollTop;
-
-                console.log(numPages);
-                if (app.index > numPages) {
-                    return;
-                }
-
-                if (body.scrollHeight - scrollTop - parseFloat(body.clientHeight) <= 10) {
-                    getProducts();
-                }
-            });
-
-            var trades = $('.trades');
-
-            $('.trades').on('change', function ( ) {
-                var search = "";
-                trades.each(function (index, element) {
-                    if ($(element).is(":checked")) {
-                        search+= '&' + 'tradeNames=' + element.name;
-                    }
-                });
-
-                var urlSearch = window.location.search;
-                urlSearch =  urlSearch.replace(/tradeNames=[a-zA-Z]+&*/ig, "");
-                urlSearch =  urlSearch.replace(/&{2,}/ig, "&");
-
-                if (!urlSearch) {
-                    search = '?a=' + search;
-                }else {
-                    search = urlSearch + search;
-                }
-
-
-
-                window.history.pushState(search,'page 2', search);
-                app.index = 0;
-                app.order =  $('#order').find(":selected").text();
-                $('#product-container').html("");
-                getProducts();
-            });
-
-
-            // slider jq-ui
-            $( "#slider-range" ).slider({
-                range: true,
-                min:  app.minPrice,
-                max:  app.maxPrice,
-                values: [  app.minPrice,  app.maxPrice ],
-                change: function( event, ui ) {
-                    if (event.originalEvent) {
-                        var search = "&minPrice=" + ui.values[0] + "&maxPrice=" + ui.values[1];
-                        var urlSearch = window.location.search;
-
-                        urlSearch =  urlSearch.replace(/minPrice=[0-9]+&*/ig, "");
-                        urlSearch =  urlSearch.replace(/maxPrice=[0-9]+&*/ig, "");
-                        urlSearch =  urlSearch.replace(/&{2,}/ig, "&");
-
-                        if (!urlSearch) {
-                            search = '?a=' + search;
-                        }else {
-                            search = urlSearch + search;
-                        }
-
-                        window.history.pushState(search,'page 2', search);
-                        app.index = 0;
-                        app.order =  $('#order').find(":selected").text();
-                        $('#product-container').html("");
-                        getProducts();
-                    }
-                },
-                slide: function( event, ui ) {
-                    $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-                }
-            });
-
-
-            $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-              " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-        });
-    </script>
-}

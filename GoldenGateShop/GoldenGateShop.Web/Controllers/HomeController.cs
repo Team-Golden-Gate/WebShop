@@ -10,7 +10,7 @@
 
     public class HomeController : BaseController
     {
-        [OutputCache(Duration=15*60)]
+        // [OutputCache(Duration=15*60)]
         public ActionResult Index()
         {
             var carouselProducts = this.Data.Products.All()
@@ -44,7 +44,7 @@
                 RandomProducts = randomProducts
             };
 
-
+            this.ViewBag.Location = "Index";
             return View(viewModel);
         }
 
@@ -52,6 +52,7 @@
         {
             ViewBag.Message = "Your application description page.";
 
+            this.ViewBag.Location = "About";
             return View();
         }
 
@@ -59,6 +60,7 @@
         {
             ViewBag.Message = "Your contact page.";
 
+            this.ViewBag.Location = "Contact";
             return View();
         }
     }

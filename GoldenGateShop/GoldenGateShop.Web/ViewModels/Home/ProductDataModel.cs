@@ -20,7 +20,7 @@
                     Category = p.Category.Name,
                     Description = p.ProductCharacteristics
                         .AsQueryable()
-                        .Where(c => c.CharacteristicType.Name == "Short Description")
+                        .Where(c => c.CharacteristicType.FilterType == FilterType.None)
                         .Select(c => c.CharacteristicValue.Description).FirstOrDefault()
                 };
             }
@@ -36,6 +36,6 @@
 
         public string Category { get; set; }
 
-        public string Description { get; set; }
+        public string Description { get; set; }       
     }
 }

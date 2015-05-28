@@ -1,0 +1,130 @@
+﻿@model GoldenGateShop.Web.ViewModels.Categories.CategoryCharacteristicsDataModel
+@{
+    var name = this.Model.Name.Replace(" ", "---");
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading@(name)">
+        <h4 class="panel-title">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse@(name)" aria-expanded="false" aria-controls="collapse@(name)">
+                @this.Model.Name
+            </a>
+        </h4>
+    </div>
+    <div id="collapse@(name)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading@(name)">
+        <div class="panel-body">
+            @switch (this.Model.FilterType)
+            {
+                case GoldenGateShop.Models.FilterType.None:
+                    break;
+                case GoldenGateShop.Models.FilterType.Range:
+                    <div class="slide-range-holder">
+                        <p>
+                            <label for="amount@(name)">Price range:</label>
+                            <input type="text" id="amount@(name)" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        </p>
+
+                        <div id="slider-range@(name)"></div>
+                    </div>
+                    break;
+                case GoldenGateShop.Models.FilterType.Checkbox:
+                <ul>
+                    @foreach (var value in this.Model.Values)
+                    {
+                        <li>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="@value.Id"
+                                           class="@(this.Model.Id)-filter"> @value.Description
+                                    </label>
+                                </div>
+                            </li>
+                    }
+                </ul>
+                    break;
+                default:
+                    break;
+            }
+        </div>
+    </div>
+</div>
+
+@if (this.Model.FilterType == GoldenGateShop.Models.FilterType.Range)
+{
+    <script>
+        var app = app || {};
+        app.@(name)Min = @(this.Model.Min.HasValue ? this.Model.Min.Value : 0);
+        app.@(name)Max = @(this.Model.Max.HasValue ? this.Model.Max.Value : 0);
+
+        $(function () {
+            // slider jq-ui
+            $("#slider-range@(name)").slider({
+                range: true,
+                min: app.@(name)Min,
+                max: app.@(name)Max,
+                values: [app.@(name)Min, app.@(name)Max],
+                change: function (event, ui) {
+                    if (event.originalEvent) {
+                        var search = "&filters=@(name)_min_" + ui.values[0] + "_max_" + ui.values[1];
+                        var urlSearch = window.location.search;
+
+                        urlSearch = urlSearch.replace(/filters=@(name)_min_[0-9]+_max_[0-9]+&*/ig, "");
+                        urlSearch = urlSearch.replace(/&{2,}/ig, "&");
+
+                        if (!urlSearch) {
+                            search = '?a=' + search;
+                        } else {
+                            search = urlSearch + search;
+                        }
+
+                        window.history.pushState(search, 'page 2', search);
+                        app.index = 0;
+                        app.order = $('#order').find(":selected").text();
+                        $('#product-container').html("");
+                        app.getProducts();
+                    }
+                },
+                slide: function (event, ui) {
+                    $("#amount@(name)").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                }
+            });
+
+
+            $("#amount@(name)").val("$" + $("#slider-range@(name)").slider("values", 0) +
+              " - $" + $("#slider-range@(name)").slider("values", 1));
+        });
+    </script>
+
+}
+else if (this.Model.FilterType == GoldenGateShop.Models.FilterType.Checkbox)
+{
+    <script>
+        app.filters@(this.Model.Id) = $('.@(this.Model.Id)-filter');
+
+        $('.@(this.Model.Id)-filter').on('change', function ( ) {
+            var search = "";
+            app.filters@(this.Model.Id).each(function (index, element) {
+                if ($(element).is(":checked")) {
+                    search+= '&' + 'filters=check_@(this.Model.Id)_' + element.name;
+                    console.log(search);
+                }
+            });
+
+            var urlSearch = window.location.search;
+            urlSearch =  urlSearch.replace(/filters=check_@(this.Model.Id)_[0-9]+&*/ig, "");
+            urlSearch =  urlSearch.replace(/&{2,}/ig, "&");
+
+            if (!urlSearch) {
+                search = '?a=' + search;
+            }else {
+                search = urlSearch + search;
+            }
+
+            window.history.pushState(search,'page 2', search);
+            app.index = 0;
+            app.order =  $('#order').find(":selected").text();
+            $('#product-container').html("");
+            app.getProducts();
+        });
+    </script>
+}

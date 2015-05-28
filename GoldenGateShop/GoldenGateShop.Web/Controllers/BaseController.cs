@@ -45,6 +45,8 @@
                 this.UserProfile = this.Data.Users.All().Where(u => u.UserName == username).FirstOrDefault();
             }
 
+          
+
             var categories = this.Data.Categories.All().OrderBy(c => c.Position).Select(c => c.Name);
             this.ViewBag.Categories = categories;
 

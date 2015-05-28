@@ -89,6 +89,7 @@ namespace GoldenGateShop.Data.Migrations
                 Name = "Short Description",
                 Position = ++i,
                 Category = categories,
+                FilterType = FilterType.None,
                 CharacteristicValue = new HashSet<CharacteristicValue>()
                 {
                     new CharacteristicValue()
@@ -124,6 +125,7 @@ namespace GoldenGateShop.Data.Migrations
                 Name = "CPU",
                 Position = ++i,
                 Category = categories,
+                FilterType = FilterType.Checkbox,
                 CharacteristicValue = new HashSet<CharacteristicValue>()
                 {
                     new CharacteristicValue()
@@ -164,6 +166,7 @@ namespace GoldenGateShop.Data.Migrations
                 Name = "HDD",
                 Position = ++i,
                 Category = categories,
+                FilterType = FilterType.Range,
                 CharacteristicValue = new HashSet<CharacteristicValue>()
                 {
                     new CharacteristicValue()
@@ -193,6 +196,7 @@ namespace GoldenGateShop.Data.Migrations
                 Name = "Video processor",
                 Position = ++i,
                 Category = categories,
+                FilterType = FilterType.Checkbox,
                 CharacteristicValue = new HashSet<CharacteristicValue>()
                 {
                     new CharacteristicValue()
@@ -232,6 +236,7 @@ namespace GoldenGateShop.Data.Migrations
                 Name = "Ram",
                 Position = ++i,
                 Category = categories,
+                FilterType = FilterType.Range,
                 CharacteristicValue = new HashSet<CharacteristicValue>()
                 {
                      new CharacteristicValue()

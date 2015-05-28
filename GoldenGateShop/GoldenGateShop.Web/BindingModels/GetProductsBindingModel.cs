@@ -11,5 +11,7 @@
         public decimal? MaxPrice { get; set; }
 
         public string OrderBy { get; set; }
+
+        public string[] Filters { get; set; }
     }
 }

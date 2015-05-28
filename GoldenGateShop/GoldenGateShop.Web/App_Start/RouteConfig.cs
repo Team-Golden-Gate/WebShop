@@ -14,6 +14,16 @@ namespace GoldenGateShop.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "GetFilters",
+                url: "Categories/GetFilters/{categoryName}",
+                defaults: new
+                {
+                    controller = "Categories",
+                    action = "GetFilters",
+                }
+            );
+
+            routes.MapRoute(
                 name: "GetProducts",
                 url: "Categories/GetProducts/{categoryName}/{page}",
                 defaults: new
@@ -29,7 +39,7 @@ namespace GoldenGateShop.Web
                 defaults: new
                 {
                     controller = "Categories",
-                    action = "Index",
+                    action = "Category",
                 }
             );
 

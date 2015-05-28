@@ -1,12 +1,9 @@
 ﻿namespace GoldenGateShop.Web.ViewModels.Categories
 {
-    using GoldenGateShop.Models;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Linq.Expressions;
-    using System.Web;
 
+    using GoldenGateShop.Models;
 
     public class ProductCharacteristicsDataModel
     {
@@ -17,7 +14,8 @@
                 return x => new ProductCharacteristicsDataModel()
                 {
                     Name = x.CharacteristicType.Name,
-                    Description = x.CharacteristicValue.Description
+                    Description = x.CharacteristicValue.Description,
+                    FilterType = x.CharacteristicType.FilterType.ToString()
                 };
             }
         }
@@ -25,5 +23,7 @@
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public string FilterType { get; set; }
     }
 }

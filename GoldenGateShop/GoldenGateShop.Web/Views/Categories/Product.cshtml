@@ -1,12 +1,52 @@
-﻿@{
-    ViewBag.Title = "Product";
+﻿@model GoldenGateShop.Web.ViewModels.Categories.ProductViewModel
+@{
+    ViewBag.Title = "Product";   
 }
 <div class="container body-content">
-    <h2>Product</h2>
+    <div class="col-md-12">
+        <h2 class="text-center">@this.Model.Name</h2>
+    </div>
+    <div class="col-md-4">
+        @if (this.Model.Picture == null)
+        {
 
-
-    <h1>@this.ViewBag.categoryName</h1>
-
-    <h1>@this.ViewBag.productName</h1>
-
+            <img src="~/Images/noimage.jpg" />
+        }
+        else
+        {
+            <img src="@this.Model.Picture" alt="" />
+        }
+    </div>
+    <div class="col-md-8">
+        <p>
+            <h3>
+                @this.Model.ProductCharacteristics[0].Description
+            </h3>
+        </p>
+        <table class="table table-bordered table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Characteristic
+                    </th>
+                    <th>
+                        Value
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var characteristic in this.Model.ProductCharacteristics.Skip(1))
+                {
+                    <tr>
+                        <td>
+                            @characteristic.Name
+                        </td>
+                        <td>
+                            @characteristic.Description
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

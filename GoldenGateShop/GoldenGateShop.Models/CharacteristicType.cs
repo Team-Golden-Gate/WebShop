@@ -26,6 +26,8 @@
 
         public int Position { get; set; }
 
+        public FilterType FilterType { get; set; }
+
         public virtual ICollection<Category> Category
         {
             get { return this.category; }
