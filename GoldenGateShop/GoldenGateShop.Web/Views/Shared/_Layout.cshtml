@@ -37,6 +37,9 @@
                             @Html.ActionLink(category, category, "Categories", new { area = "" }, null)
                         </li>
                     }
+                    <li class="@(ViewBag.Location == "Cart" ? "active" : "")">
+                        @Html.ActionLink("Cart", "Index", "Cart", new { area = "" }, null)
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
