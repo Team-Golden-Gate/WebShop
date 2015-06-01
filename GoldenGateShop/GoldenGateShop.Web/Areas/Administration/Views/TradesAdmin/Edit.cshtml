@@ -58,6 +58,11 @@
 
             @section Scripts {
                 @Scripts.Render("~/bundles/jqueryval")
+
+                <script>
+                    app.activateMenu('@this.ViewBag.SubLocation');
+                </script>
+
             }
         </div>
     </div>
