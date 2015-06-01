@@ -31,12 +31,9 @@
                     <li class="@(ViewBag.Location == "Contact" ? "active" : "")">
                         @Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, null)
                     </li>
-                    @foreach (string category in this.ViewBag.Categories)
-                    {
-                        <li class="@(ViewBag.Location == category ? "active" : "")">
-                            @Html.ActionLink(category, category, "Categories", new { area = "" }, null)
-                        </li>
-                    }
+
+                    @{Html.RenderAction("Menu", "Home", new { area = "" });}
+
                     <li class="@(ViewBag.Location == "Cart" ? "active" : "")">
                         @Html.ActionLink("Cart", "Index", "Cart", new { area = "" }, null)
                     </li>
@@ -56,6 +53,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/app")
     @RenderSection("scripts", required: false)
 </body>
 </html>

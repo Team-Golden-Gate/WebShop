@@ -1,12 +1,12 @@
 ﻿namespace GoldenGateShop.Web.Controllers
 {
-    using GoldenGateShop.Web.ViewModels.Home;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
 
+    using GoldenGateShop.Web.ViewModels.Home;
 
     public class HomeController : BaseController
     {
@@ -62,6 +62,17 @@
 
             this.ViewBag.Location = "Contact";
             return View();
+        }
+
+        [ChildActionOnly]
+        // [OutputCache(Duration=15*60)]
+        public ActionResult Menu()
+        {
+            var categories = this.Data.Categories.All()
+                .OrderBy(c => c.Position)
+                .Select(c => c.Name);
+
+            return this.PartialView("_Menu", categories);
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿namespace GoldenGateShop.Web.ViewModels.Home
 {
-    using GoldenGateShop.Models;
     using System;
     using System.Linq.Expressions;
     using System.Linq;
+
+    using GoldenGateShop.Models;
+
 
     public class ProductDataModel
     {
@@ -36,6 +38,6 @@
 
         public string Category { get; set; }
 
-        public string Description { get; set; }       
+        public string Description { get; set; }
     }
 }

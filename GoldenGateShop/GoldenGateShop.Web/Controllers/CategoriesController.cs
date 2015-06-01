@@ -27,6 +27,7 @@
 
             return this.View(categories);
         }
+
         public ActionResult Category(string categoryName, GetProductsBindingModel model)
         {
             this.ViewBag.categoryName = categoryName;
@@ -130,7 +131,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var data = this.Data.Characteristics.All()
+            var data = this.Data.CharacteristicTypes.All()
                 .Where(c => c.FilterType != FilterType.None)
                 .Where(c => c.Category.Any(cat => cat.Name == categoryName))
                 .Select(c => new
@@ -189,9 +190,8 @@
 
             if (product == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return this.HttpNotFound();
             }
-
 
             return this.View(product);
         }
@@ -231,8 +231,8 @@
             {
                 try
                 {
-                    var rangeFilters = model.Filters.Where(f => f.Contains("min"));
-                    var cheackFilters = model.Filters.Where(f => f.Contains("check"));
+                    var rangeFilters = model.Filters.Where(f => f.Contains("_min_"));
+                    var cheackFilters = model.Filters.Where(f => f.Contains("check_"));
 
                     foreach (var filter in rangeFilters)
                     {
@@ -317,7 +317,6 @@
             {
                 products = products.OrderBy(p => p.Price);
             }
-
 
             var productsModel = products.Select(ProductDataModel.FromProduct);
 

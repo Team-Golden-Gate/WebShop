@@ -1,0 +1,24 @@
+﻿@model IEnumerable<string>
+@using GoldenGateShop.Web.Helpers
+
+<div class="col-md-2">
+    <ul class="nav nav-pills nav-stacked" id="admin-menu">
+        <li id="HomeAdmin">
+            <a href="/Administration/HomeAdmin">
+                Home
+            </a>
+        </li>
+        @foreach (var item in this.Model)
+        {
+            <li id="@(item)Admin">
+                @if (item == "Home")
+                {
+                    continue;
+                }
+                <a href="/Administration/@(item)Admin">
+                    @item.ToString().PascalCaseToText()
+                </a>
+            </li>
+        }
+    </ul>
+</div>

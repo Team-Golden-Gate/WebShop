@@ -117,7 +117,7 @@ namespace GoldenGateShop.Data.Migrations
 
             };
 
-            context.Characteristics.Add(charcter);
+            context.CharacteristicTypes.Add(charcter);
             characteristics.Add(charcter);
 
             charcter = new CharacteristicType()
@@ -158,7 +158,7 @@ namespace GoldenGateShop.Data.Migrations
 
             };
 
-            context.Characteristics.Add(charcter);
+            context.CharacteristicTypes.Add(charcter);
             characteristics.Add(charcter);
 
             charcter = new CharacteristicType()
@@ -188,7 +188,7 @@ namespace GoldenGateShop.Data.Migrations
 
             };
 
-            context.Characteristics.Add(charcter);
+            context.CharacteristicTypes.Add(charcter);
             characteristics.Add(charcter);
 
             charcter = new CharacteristicType()
@@ -228,7 +228,7 @@ namespace GoldenGateShop.Data.Migrations
 
             };
 
-            context.Characteristics.Add(charcter);
+            context.CharacteristicTypes.Add(charcter);
             characteristics.Add(charcter);
 
             charcter = new CharacteristicType()
@@ -258,7 +258,7 @@ namespace GoldenGateShop.Data.Migrations
 
             };
 
-            context.Characteristics.Add(charcter);
+            context.CharacteristicTypes.Add(charcter);
             characteristics.Add(charcter);
 
 

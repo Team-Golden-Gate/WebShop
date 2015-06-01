@@ -43,6 +43,14 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -217,17 +225,32 @@
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\BaseAdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\CategoriesAdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\CharacteristicTypesAdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\CharacteristicValuesAdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\GlobalPromotionsAdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\HomeAdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\IndividualPromotionsAdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\ProductsAdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\TradesAdminController.cs" />
+    <Compile Include="Areas\Administration\Helpers\AdminMenu.cs" />
+    <Compile Include="Areas\Administration\ViewModels\Categories\CategoriesViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\Trades\TradesViewModel.cs" />
     <Compile Include="BindingModels\FilterBindingModel.cs" />
     <Compile Include="BindingModels\GetProductsBindingModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ReflectionHelper.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
+    <Compile Include="Infrastructure\Mapping\AutoMapperConfig.cs" />
+    <Compile Include="Infrastructure\Mapping\IHaveCustomMappings.cs" />
+    <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -286,6 +309,7 @@
     <Content Include="Images\loading3.gif" />
     <Content Include="Images\noimage.jpg" />
     <Content Include="Images\portfolio-2 %281%29.jpg" />
+    <Content Include="Scripts\App\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -296,9 +320,44 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\images\Thumbs.db" />
     <Content Include="Areas\Administration\Views\web.config" />
-    <Content Include="Areas\Administration\Views\Categories\Index.cshtml" />
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administration\Views\HomeAdmin\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\_AdminMenu.cshtml" />
+    <Content Include="Areas\Administration\Views\TradesAdmin\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\TradesAdmin\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\TradesAdmin\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\TradesAdmin\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\TradesAdmin\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\CategoriesAdmin\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\CategoriesAdmin\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\CategoriesAdmin\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\CategoriesAdmin\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\CategoriesAdmin\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\CharacteristicTypesAdmin\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\CharacteristicTypesAdmin\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\CharacteristicTypesAdmin\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\CharacteristicTypesAdmin\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\CharacteristicTypesAdmin\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\CharacteristicValuesAdmin\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\CharacteristicValuesAdmin\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\CharacteristicValuesAdmin\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\CharacteristicValuesAdmin\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\CharacteristicValuesAdmin\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\ProductsAdmin\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\ProductsAdmin\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\ProductsAdmin\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\ProductsAdmin\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\ProductsAdmin\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\GlobalPromotionsAdmin\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\GlobalPromotionsAdmin\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\GlobalPromotionsAdmin\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\GlobalPromotionsAdmin\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\GlobalPromotionsAdmin\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\IndividualPromotionsAdmin\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\IndividualPromotionsAdmin\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\IndividualPromotionsAdmin\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\IndividualPromotionsAdmin\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\IndividualPromotionsAdmin\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
@@ -351,11 +410,11 @@
     <Content Include="Views\Categories\DisplayTemplates\CategoryCharacteristicsDataModel.cshtml" />
     <Content Include="Views\Categories\_GetFilters.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administration\Models\" />
-    <Folder Include="Areas\Administration\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -399,6 +458,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

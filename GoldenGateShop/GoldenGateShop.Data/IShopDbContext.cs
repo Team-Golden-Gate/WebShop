@@ -10,7 +10,9 @@
 
         IDbSet<Category> Categories { get; }
 
-        IDbSet<CharacteristicType> Characteristics { get; }
+        IDbSet<CharacteristicType> CharacteristicTypes { get; }
+
+        IDbSet<CharacteristicValue> CharacteristicValues { get; }
 
         IDbSet<GlobalPromotion> GlobalPromotions { get; }
 
@@ -24,7 +26,7 @@
 
         IDbSet<Promotion> Promotions { get; }
 
-        IDbSet<State> States { get; }        
+        IDbSet<State> States { get; }
 
         IDbSet<Trade> Trades { get; }
 

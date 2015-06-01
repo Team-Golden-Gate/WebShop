@@ -19,7 +19,7 @@
 
         public IDbSet<Category> Categories { get; set; }
 
-        public IDbSet<CharacteristicType> Characteristics { get; set; }
+        public IDbSet<CharacteristicType> CharacteristicTypes { get; set; }
 
         public IDbSet<GlobalPromotion> GlobalPromotions { get; set; }
 
@@ -36,6 +36,8 @@
         public IDbSet<State> States { get; set; }
 
         public IDbSet<Trade> Trades { get; set; }
+
+        public IDbSet<CharacteristicValue> CharacteristicValues { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

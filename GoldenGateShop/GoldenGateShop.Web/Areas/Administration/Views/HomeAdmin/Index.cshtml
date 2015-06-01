@@ -2,5 +2,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center">Index</h2>
+        </div>
+        @{Html.RenderAction("Menu", "HomeAdmin");}
+        <div class="jumbotron col-md-9">
+            <h2>@this.ViewBag.SubLocation</h2>
+        </div>
+    </div>
+</div>
 
+
+@section scripts {
+    <script>
+        app.activateMenu('@this.ViewBag.SubLocation');
+    </script>
+}

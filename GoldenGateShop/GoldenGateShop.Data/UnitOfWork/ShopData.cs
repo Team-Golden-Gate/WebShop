@@ -47,13 +47,22 @@
             }
         }
 
-        public IRepository<CharacteristicType> Characteristics
+        public IRepository<CharacteristicType> CharacteristicTypes
         {
             get
             {
                 return this.GetRepository<CharacteristicType>();
             }
         }
+
+        public IRepository<CharacteristicValue> CharacteristicValues
+        {
+            get
+            {
+                return this.GetRepository<CharacteristicValue>();
+            }
+        }
+
 
         public IRepository<GlobalPromotion> GlobalPromotions
         {

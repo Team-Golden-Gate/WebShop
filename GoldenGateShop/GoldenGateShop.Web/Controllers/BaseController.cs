@@ -32,7 +32,7 @@
             set { this.data = value; }
         }
 
-        protected User UserProfile { get; private set; }
+        protected CurrentUser UserProfile { get; private set; }
 
         protected IEnumerable<Category> Categories { get; private set; }
 
@@ -42,16 +42,29 @@
             if (requestContext.HttpContext.User.Identity.IsAuthenticated)
             {
                 var username = requestContext.HttpContext.User.Identity.Name;
-                this.UserProfile = this.Data.Users.All().Where(u => u.UserName == username).FirstOrDefault();
+                this.UserProfile = this.Data.Users.All().Where(u => u.UserName == username)
+                    .Select(x =>  new CurrentUser
+                    {
+                       Id =  x.Id,
+                       UserName = x.UserName,
+                       Email = x.Email                    
+                    })
+                    .FirstOrDefault();
             }
-
-          
-
-            var categories = this.Data.Categories.All().OrderBy(c => c.Position).Select(c => c.Name);
-            this.ViewBag.Categories = categories;
 
             return base.BeginExecute(requestContext, callback, state);
         }
 
+        
+
+    }
+
+    public class CurrentUser
+    {
+        public string Id { get; set; }
+
+        public string UserName { get; set; }
+
+        public string Email { get; set; }
     }
 }

@@ -12,7 +12,10 @@ namespace GoldenGateShop.Data.UnitOfWork
 
         IRepository<Category> Categories { get; }
 
-        IRepository<CharacteristicType> Characteristics { get; }
+        IRepository<CharacteristicType> CharacteristicTypes { get; }
+
+        IRepository<CharacteristicValue> CharacteristicValues { get; }
+
 
         IRepository<GlobalPromotion> GlobalPromotions { get; }
 
@@ -26,7 +29,7 @@ namespace GoldenGateShop.Data.UnitOfWork
 
         IRepository<Promotion> Promotions { get; }
 
-        IRepository<State> States { get; }      
+        IRepository<State> States { get; }
 
         IRepository<Trade> Trades { get; }
 
