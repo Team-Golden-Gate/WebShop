@@ -48,20 +48,7 @@ input[type="checkbox"].input-validation-error {
 
 
 
-/*MENU*/
 
-.navbar-inverse {
-    background-color: #00BCF2;
-}
-
-
-    .navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
-        color: black;
-    }
-
-    .navbar-inverse .navbar-nav > li:hover, .navbar-inverse .navbar-nav > li:focus {
-        background-color: #b94a48;
-    }
 
 /*MAIN PAGE*/
 
@@ -118,7 +105,7 @@ div.promotion h3 a {
 }
 
 .full-description {
-    height: 250px;
+    height: 300px;
     list-style: none;
     padding: 0;
 }
@@ -151,4 +138,20 @@ div.promotion h3 a {
         top: 0;
         left: 0;
     }
+}
+
+table tr th {
+    color: white;
+    background-color: #1ABC9C;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+table th {
+    text-align: center;
+}
+
+table td:last-of-type {
+    width: 33%;
 }

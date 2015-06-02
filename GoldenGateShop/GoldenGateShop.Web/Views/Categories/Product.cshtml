@@ -20,7 +20,11 @@
     <div class="col-md-8">
         <p>
             <h3>
-                @this.Model.ProductCharacteristics[0].Description
+                @if (this.Model.ProductCharacteristics.Count != 0)
+                {
+                    this.Model.ProductCharacteristics[0].Description.ToString();
+                }            
+                
             </h3>
         </p>
         <table class="table table-bordered table-condensed table-hover table-striped">

@@ -2,7 +2,7 @@
 
 @foreach (string category in this.Model)
 {
-    <li class="@(ViewBag.Location == category ? "active" : "")">
+    <li class="@(this.ViewBag.Location == category ? "active" : "")">
         @Html.ActionLink(category, category, "Categories", new { area = "" }, null)
     </li>
 }

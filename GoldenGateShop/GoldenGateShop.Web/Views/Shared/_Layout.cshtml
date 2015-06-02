@@ -22,17 +22,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="@(ViewBag.Location == "Index" ? "active" : "")">
+                    <li @(ViewBag.Location == "Index" ? "class=active" : "")>
                         @Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)
                     </li>
-                    <li class="@(ViewBag.Location == "About" ? "active" : "")">
+                    <li @(ViewBag.Location == "About" ? "class=active" : "")>
                         @Html.ActionLink("About", "About", "Home", new { area = "" }, null)
                     </li>
-                    <li class="@(ViewBag.Location == "Contact" ? "active" : "")">
+                    <li @(ViewBag.Location == "Contact" ? "class=active" : "")>
                         @Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, null)
                     </li>
 
-                    @{Html.RenderAction("Menu", "Home", new { area = "" });}
+                    @{Html.RenderAction("Menu", "Home", new { location = this.ViewBag.Location, area = "" });}
 
                     <li class="@(ViewBag.Location == "Cart" ? "active" : "")">
                         @Html.ActionLink("Cart", "Index", "Cart", new { area = "" }, null)

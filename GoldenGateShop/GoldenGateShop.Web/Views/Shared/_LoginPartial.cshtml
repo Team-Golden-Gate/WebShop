@@ -12,7 +12,12 @@
             @if (User.IsInRole("Administrator"))
             {
                 <li class="@(ViewBag.Location == "AdminArea" ? "active" : "")">
-                    @Html.ActionLink("AdminArea", "Index", "HomeAdmin", new { area = "Administration" }, null)
+                   
+                    <a href="/Administration/HomeAdmin/">
+                        <span class="glyphicon glyphicon-cog">AdminArea</span>
+                    </a>
+                       
+                  
                 </li>
             }
 

@@ -1,24 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using GoldenGateShop.Data;
-using GoldenGateShop.Models;
-
-namespace GoldenGateShop.Web.Areas.Administration.Controllers
+﻿namespace GoldenGateShop.Web.Areas.Administration.Controllers
 {
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+
+    using AutoMapper.QueryableExtensions;
+
+    using GoldenGateShop.Data;
+    using GoldenGateShop.Models;
+    using GoldenGateShop.Web.Areas.Administration.ViewModels.CharcacteristicTypes;
+
     public class CharacteristicTypesAdminController : BaseAdminController
     {
-        private ShopDbContext db = new ShopDbContext();
-
         // GET: Administration/CharacteristicTypes
         public ActionResult Index()
         {
-            return View(db.CharacteristicTypes.ToList());
+            var characteristicTypes = this.Data.CharacteristicTypes.All()
+                .OrderBy(c => c.Position)
+                .Project().To<CharacteristicTypesViewModel>()
+                .ToList();
+
+            return View(characteristicTypes);
         }
 
         // GET: Administration/CharacteristicTypes/Details/5
@@ -28,7 +31,12 @@ namespace GoldenGateShop.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CharacteristicType characteristicType = db.CharacteristicTypes.Find(id);
+
+            var characteristicType = this.Data.CharacteristicTypes.All()
+                 .Where(c => c.Id == id)
+                 .Project().To<CharacteristicTypesViewModel>()
+                 .FirstOrDefault();
+
             if (characteristicType == null)
             {
                 return HttpNotFound();
@@ -51,8 +59,8 @@ namespace GoldenGateShop.Web.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.CharacteristicTypes.Add(characteristicType);
-                db.SaveChanges();
+                this.Data.CharacteristicTypes.Add(characteristicType);
+                this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +74,8 @@ namespace GoldenGateShop.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CharacteristicType characteristicType = db.CharacteristicTypes.Find(id);
+            var characteristicType = this.Data.CharacteristicTypes.GetById(id);
+
             if (characteristicType == null)
             {
                 return HttpNotFound();
@@ -83,10 +92,11 @@ namespace GoldenGateShop.Web.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(characteristicType).State = EntityState.Modified;
-                db.SaveChanges();
+                this.Data.CharacteristicTypes.Update(characteristicType);
+                this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(characteristicType);
         }
 
@@ -97,7 +107,7 @@ namespace GoldenGateShop.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CharacteristicType characteristicType = db.CharacteristicTypes.Find(id);
+            var characteristicType = this.Data.CharacteristicTypes.GetById(id);
             if (characteristicType == null)
             {
                 return HttpNotFound();
@@ -110,19 +120,10 @@ namespace GoldenGateShop.Web.Areas.Administration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CharacteristicType characteristicType = db.CharacteristicTypes.Find(id);
-            db.CharacteristicTypes.Remove(characteristicType);
-            db.SaveChanges();
+            CharacteristicType characteristicType = this.Data.CharacteristicTypes.GetById(id);
+            this.Data.CharacteristicTypes.Delete(characteristicType);
+            this.Data.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

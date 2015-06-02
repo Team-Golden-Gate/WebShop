@@ -222,6 +222,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\ViewEngineConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\BaseAdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\CategoriesAdminController.cs" />
@@ -234,6 +235,9 @@
     <Compile Include="Areas\Administration\Controllers\TradesAdminController.cs" />
     <Compile Include="Areas\Administration\Helpers\AdminMenu.cs" />
     <Compile Include="Areas\Administration\ViewModels\Categories\CategoriesViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\CharacteristicValues\CharacteristicTypesViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\CharacteristicValues\CharacteristicValuesViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\CharcacteristicTypes\CharacteristicTypesViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\Trades\TradesViewModel.cs" />
     <Compile Include="BindingModels\FilterBindingModel.cs" />
     <Compile Include="BindingModels\GetProductsBindingModel.cs" />
@@ -269,6 +273,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\font-awesome.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\images\ui-bg_flat_10_000000_40x100.png" />
@@ -358,6 +365,12 @@
     <Content Include="Areas\Administration\Views\IndividualPromotionsAdmin\Details.cshtml" />
     <Content Include="Areas\Administration\Views\IndividualPromotionsAdmin\Edit.cshtml" />
     <Content Include="Areas\Administration\Views\IndividualPromotionsAdmin\Index.cshtml" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Areas\Administration\Views\CharacteristicValuesAdmin\_GetCharacteristicValuesByCharacteristicType.cshtml" />
     <None Include="Properties\PublishProfiles\adi.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />

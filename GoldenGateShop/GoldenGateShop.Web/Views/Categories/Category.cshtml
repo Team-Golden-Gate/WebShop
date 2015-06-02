@@ -98,11 +98,7 @@
                 app.order =  $('#order').find(":selected").text();
                 $('#product-container').html("");
                 app.getProducts();
-            });
-
-            //loading element
-            $(window).ajaxStart(function () { $('#loading').show(); });
-            $(window).ajaxComplete(function () { $('#loading').hide(); });
+            });           
 
             //get filters
             $.ajax({

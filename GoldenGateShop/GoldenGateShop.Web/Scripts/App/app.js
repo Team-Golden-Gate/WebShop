@@ -10,3 +10,7 @@ app.activateMenu = function activateMenu(element) {
     $(el).addClass('active');
 }
 
+//loading element
+$(window).ajaxStart(function () { $('#loading').show(); });
+$(window).ajaxComplete(function () { $('#loading').hide(); });
+

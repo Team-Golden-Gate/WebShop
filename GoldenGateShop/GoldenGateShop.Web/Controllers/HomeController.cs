@@ -66,8 +66,10 @@
 
         [ChildActionOnly]
         // [OutputCache(Duration=15*60)]
-        public ActionResult Menu()
+        public ActionResult Menu(string location)
         {
+            this.ViewBag.Location = location;
+
             var categories = this.Data.Categories.All()
                 .OrderBy(c => c.Position)
                 .Select(c => c.Name);

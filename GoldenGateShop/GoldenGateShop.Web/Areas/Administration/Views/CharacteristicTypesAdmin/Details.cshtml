@@ -1,42 +1,60 @@
-﻿@model GoldenGateShop.Models.CharacteristicType
+﻿@model GoldenGateShop.Web.Areas.Administration.ViewModels.CharcacteristicTypes.CharacteristicTypesViewModel
 
 @{
     ViewBag.Title = "Details";
 }
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center">@this.ViewBag.Title</h2>
+        </div>
 
-<h2>Details</h2>
+        @{Html.RenderAction("Menu", "HomeAdmin");}
 
-<div>
-    <h4>CharacteristicType</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+        <div class="col-md-9">
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <h2>Details</h2>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Position)
-        </dt>
+            <div>
+                <h4>CharacteristicType</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Position)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FilterType)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Position)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FilterType)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.Position)
+                    </dd>
 
-    </dl>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FilterType)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.FilterType)
+                    </dd>
+
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                @Html.ActionLink("Back to List", "Index")
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@section scripts {
+    <script>
+        app.activateMenu('@this.ViewBag.SubLocation');
+    </script>
+}
