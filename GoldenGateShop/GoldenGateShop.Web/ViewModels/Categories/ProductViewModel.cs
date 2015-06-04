@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Collections.Generic;
     using System.Linq.Expressions;
 
     using GoldenGateShop.Models;
@@ -15,21 +16,28 @@
                 return p => new ProductViewModel()
                 {
                     Id = p.Id,
-                    CreatedAt = p.CreatedAt,
+                    CreatedAt = p.CreatedOn,
                     Name = p.Name,
                     Picture = p.Picture,
                     Price = p.Price,
                     Quantity = p.Quantity,
                     Trade = p.Trade.Name,
+                    Description = p.ProductCharacteristics
+                       .AsQueryable()
+                       .Where(c => c.CharacteristicType.FilterType == FilterType.Comment)
+                       .Select(c => c.CharacteristicValue.Description).FirstOrDefault(),
                     ProductCharacteristics = p.ProductCharacteristics
                     .AsQueryable()
-                    .OrderBy(c=>c.CharacteristicType.Position)
+                    .Where(c => c.CharacteristicType.FilterType != FilterType.Comment)
+                    .OrderBy(c => c.CharacteristicType.Position)
                     .Select(ProductCharacteristicsDataModel.FromCharacteristics)
                     .ToList()
                 };
             }
         }
         public int Id { get; set; }
+
+        public string Description { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
@@ -43,6 +51,6 @@
 
         public string Trade { get; set; }
 
-        public System.Collections.Generic.List<ProductCharacteristicsDataModel> ProductCharacteristics { get; set; }
+        public List<ProductCharacteristicsDataModel> ProductCharacteristics { get; set; }
     }
 }

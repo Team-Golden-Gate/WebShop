@@ -1,6 +1,7 @@
 ﻿@model GoldenGateShop.Web.ViewModels.Categories.ProductViewModel
+@using Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "Product";   
+    ViewBag.Title = "Product";
 }
 <div class="container body-content">
     <div class="col-md-12">
@@ -14,17 +15,18 @@
         }
         else
         {
-            <img src="@this.Model.Picture" alt="" />
+            <img src="@this.Model.Picture" alt="" width="300"/>
         }
     </div>
     <div class="col-md-8">
         <p>
             <h3>
-                @if (this.Model.ProductCharacteristics.Count != 0)
+
+                @if (this.Model.Description != null)
                 {
-                    this.Model.ProductCharacteristics[0].Description.ToString();
-                }            
-                
+                    <span>@this.Model.Description</span>
+                }
+
             </h3>
         </p>
         <table class="table table-bordered table-condensed table-hover table-striped">
@@ -39,7 +41,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var characteristic in this.Model.ProductCharacteristics.Skip(1))
+                @foreach (var characteristic in this.Model.ProductCharacteristics)
                 {
                     <tr>
                         <td>
@@ -52,5 +54,15 @@
                 }
             </tbody>
         </table>
+        <div class="btn btn-success">Add to chart</div>
+        @if (User.IsInRole("Administrator"))
+        {
+            <div class="btn btn-warning" onclick="javascript:window.location='/Administration/ProductsAdmin/Edit/@this.Model.Id'">
+                Edit
+            </div>
+            <div class="btn btn-danger" onclick="javascript:window.location='/Administration/ProductsAdmin/Delete/@this.Model.Id'">
+                Delete
+            </div>
+        }
     </div>
 </div>

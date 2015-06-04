@@ -238,6 +238,7 @@
     <Compile Include="Areas\Administration\ViewModels\CharacteristicValues\CharacteristicTypesViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\CharacteristicValues\CharacteristicValuesViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\CharcacteristicTypes\CharacteristicTypesViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\Products\ProductViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\Trades\TradesViewModel.cs" />
     <Compile Include="BindingModels\FilterBindingModel.cs" />
     <Compile Include="BindingModels\GetProductsBindingModel.cs" />
@@ -250,8 +251,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ReflectionHelper.cs" />
-    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Infrastructure\Mapping\AutoMapperConfig.cs" />
     <Compile Include="Infrastructure\Mapping\IHaveCustomMappings.cs" />
     <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
@@ -317,6 +316,7 @@
     <Content Include="Images\noimage.jpg" />
     <Content Include="Images\portfolio-2 %281%29.jpg" />
     <Content Include="Scripts\App\app.js" />
+    <Content Include="Scripts\App\noty.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -435,6 +435,14 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GoldenGateShop.Common\GoldenGateShop.Common.csproj">
+      <Project>{d17d5944-9b37-48b8-929e-f5c0c9c9ed15}</Project>
+      <Name>GoldenGateShop.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldenGateShop.Contracts\GoldenGateShop.Contracts.csproj">
+      <Project>{3f1a2030-10a1-4518-b47a-2422080fac3d}</Project>
+      <Name>GoldenGateShop.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GoldenGateShop.Data\GoldenGateShop.Data.csproj">
       <Project>{a2faa1fd-7fcd-45dc-98b6-a70c2cbc5f62}</Project>
       <Name>GoldenGateShop.Data</Name>

@@ -38,7 +38,7 @@ namespace GoldenGateShop.Web.Areas.Administration.Controllers
         }
 
         // GET: Administration/IndividualPromotions/Create
-        public ActionResult Create()
+        public virtual ActionResult Create()
         {
             ViewBag.ProductId = new SelectList(db.Products, "Id", "Name");
             ViewBag.PromotionId = new SelectList(db.Promotions, "Id", "Id");

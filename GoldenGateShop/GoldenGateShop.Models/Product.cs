@@ -5,7 +5,10 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Product
+    using GoldenGateShop.Contracts;
+
+
+    public class Product : IAuditInfo, IDeletableEntity
     {
         private ICollection<ProductCharacteristic> productCharacteristics;
         private ICollection<IndividualPromotion> promotions;
@@ -19,17 +22,16 @@
         public int Id { get; set; }
 
         [Required]
-        [Index(IsUnique = true)]
         [StringLength(50)]
         public string Name { get; set; }
 
         public string Picture { get; set; }
 
+        [Required]
         public decimal Price { get; set; }
 
+        [Required]
         public int Quantity { get; set; }
-
-        public DateTime CreatedAt { get; set; }
 
         public virtual ICollection<ProductCharacteristic> ProductCharacteristics
         {
@@ -49,5 +51,19 @@
         public int TradeId { get; set; }
 
         public virtual Trade Trade { get; set; }
+
+        [Column(TypeName = "datetime2")]
+        public DateTime CreatedOn { get; set; }
+
+        public bool PreserveCreatedOn { get; set; }
+
+        [Column(TypeName = "datetime2")]
+        public DateTime? ModifiedOn { get; set; }
+
+        [Index]
+        public bool IsDeleted { get; set; }
+
+        [Column(TypeName = "datetime2")]
+        public DateTime? DeletedOn { get; set; }
     }
 }

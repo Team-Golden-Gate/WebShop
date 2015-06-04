@@ -1,5 +1,6 @@
 ﻿namespace GoldenGateShop.Web.Areas.Administration.Controllers
 {
+    using System.Collections;
     using System.Data.Entity;
     using System.Linq;
     using System.Net;
@@ -12,32 +13,29 @@
     using GoldenGateShop.Models;
     using GoldenGateShop.Web.Areas.Administration.ViewModels.CharacteristicValues;
 
-
     public class CharacteristicValuesAdminController : BaseAdminController
     {
-        // GET: Administration/CharacteristicValues
-        public ActionResult Index()
+        protected override IEnumerable GetData()
         {
             var characteristicTypes = this.Data.CharacteristicTypes.All()
                 .OrderBy(c => c.Position)
-                .Project().To<CharacteristicTypesViewModel>()
-                .ToList();
+                .Project().To<CharacteristicTypesViewModel>();
 
-            //work around so can have default html option in the view
-            var options = new List<CharacteristicTypesViewModel>();
-            options.Add(new CharacteristicTypesViewModel()
-            {
-                Id = 0,
-                Name = "Choose characteristic type"
-            });
+            return characteristicTypes;
+        }
 
-            options.AddRange(characteristicTypes);
+        protected override object GetById(int? id)
+        {
+            return this.Data.CharacteristicValues.All()
+                .Where(c => c.Id == id)
+                .Project().To<CharacteristicValuesViewModel>()
+                .FirstOrDefault();
+        }
 
-            characteristicTypes = options;
-
-            this.ViewBag.ChracteristicTypesList = new SelectList(characteristicTypes, "Id", "Name");
-
-            return View(characteristicTypes);
+        protected override void GetIndexLogic()
+        {
+            this.GetTypesForList();
+            base.GetIndexLogic();
         }
 
         public ActionResult GetCharacteristicValuesByCharacteristicType(int? id)
@@ -51,7 +49,7 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
+
             var characteristicValues = this.Data.CharacteristicValues.All()
                 .Where(c => c.CharacteristicTypeId == id.Value)
                 .OrderBy(c => c.Id)
@@ -61,118 +59,71 @@
             return this.PartialView(@"~\Areas\Administration\Views\CharacteristicValuesAdmin\_GetCharacteristicValuesByCharacteristicType.cshtml", characteristicValues);
         }
 
-        // GET: Administration/CharacteristicValues/Details/5
-        public ActionResult Details(int? id)
+        protected override void GetCreatLogic()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var characteristicValue = this.Data.CharacteristicValues.All()
-                .Where(c => c.Id == id)
-                .Project().To<CharacteristicValuesViewModel>()
-                .FirstOrDefault();
-
-            if (characteristicValue == null)
-            {
-                return HttpNotFound();
-            }
-            return View(characteristicValue);
-        }
-        /*
-        // GET: Administration/CharacteristicValues/Create
-        public ActionResult Create()
-        {
-            ViewBag.CharacteristicTypeId = new SelectList(db.CharacteristicTypes, "Id", "Name");
-            return View();
+            this.GetTypesForList();
+            base.GetCreatLogic();
         }
 
-        // POST: Administration/CharacteristicValues/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Value,Description,CharacteristicTypeId")] CharacteristicValue characteristicValue)
+        public ActionResult Create(CharacteristicValuesViewModel model)
         {
             if (ModelState.IsValid)
             {
-                db.CharacteristicValues.Add(characteristicValue);
-                db.SaveChanges();
+                this.Create<CharacteristicValue>(model);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CharacteristicTypeId = new SelectList(db.CharacteristicTypes, "Id", "Name", characteristicValue.CharacteristicTypeId);
-            return View(characteristicValue);
+            this.GetTypesForList();
+            return View(model);
         }
 
-        // GET: Administration/CharacteristicValues/Edit/5
-        public ActionResult Edit(int? id)
+        protected override void GetEditLogic(object obj)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CharacteristicValue characteristicValue = db.CharacteristicValues.Find(id);
-            if (characteristicValue == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CharacteristicTypeId = new SelectList(db.CharacteristicTypes, "Id", "Name", characteristicValue.CharacteristicTypeId);
-            return View(characteristicValue);
+            var model = (CharacteristicValuesViewModel)obj;
+            this.GetTypesForList(model.CharacteristicTypeId);
+            base.GetEditLogic(model);
         }
 
-        // POST: Administration/CharacteristicValues/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Value,Description,CharacteristicTypeId")] CharacteristicValue characteristicValue)
+        public ActionResult Edit(CharacteristicValuesViewModel model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(characteristicValue).State = EntityState.Modified;
-                db.SaveChanges();
+                this.Edit<CharacteristicValue>(model);
                 return RedirectToAction("Index");
             }
-            ViewBag.CharacteristicTypeId = new SelectList(db.CharacteristicTypes, "Id", "Name", characteristicValue.CharacteristicTypeId);
-            return View(characteristicValue);
-        }
 
-        // GET: Administration/CharacteristicValues/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CharacteristicValue characteristicValue = db.CharacteristicValues.Find(id);
-            if (characteristicValue == null)
-            {
-                return HttpNotFound();
-            }
-            return View(characteristicValue);
+            this.GetTypesForList(model.CharacteristicTypeId);
+            return View(model);
         }
-
-        // POST: Administration/CharacteristicValues/Delete/5
+       
+       
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CharacteristicValue characteristicValue = db.CharacteristicValues.Find(id);
-            db.CharacteristicValues.Remove(characteristicValue);
-            db.SaveChanges();
+            this.Delete<CharacteristicValue>(id);
             return RedirectToAction("Index");
-        }
+        }      
 
-        protected override void Dispose(bool disposing)
+        [NonAction]
+        public void GetTypesForList(object selectedId = null)
         {
-            if (disposing)
+            var characteristicTypes = this.GetData();
+            //workaround so can have default html option in the view
+            var options = new List<CharacteristicTypesViewModel>();
+            options.Add(new CharacteristicTypesViewModel()
             {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+                Id = 0,
+                Name = "Choose characteristic type"
+            });
+
+            options.AddRange(characteristicTypes.Cast<CharacteristicTypesViewModel>().ToList());
+
+            this.ViewBag.CharacteristicTypeId = new SelectList(options, "Id", "Name", selectedId);
         }
-         * */
     }
 }

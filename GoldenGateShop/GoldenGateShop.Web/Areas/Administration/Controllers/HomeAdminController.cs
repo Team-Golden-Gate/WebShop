@@ -7,16 +7,10 @@
     using System.Web.Mvc;
 
     using GoldenGateShop.Web.Areas.Administration.Helpers;
-    using GoldenGateShop.Web.Helpers;
+    using System.Collections;
 
     public class HomeAdminController : BaseAdminController
-    {
-        // GET: Administration/Home
-        public ActionResult Index()
-        {
-            this.ViewBag.SubLocation = "Home";
-            return View();
-        }
+    {       
 
         [ChildActionOnly]
         public ActionResult Menu()

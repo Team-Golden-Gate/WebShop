@@ -51,8 +51,7 @@ namespace GoldenGateShop.Data.Migrations
                         Price = this.random.Next(100, 1001),
                         Quantity = 10,
                         Trade = trades[this.random.Next(0, trades.Count)],
-                        Category = category,
-                        CreatedAt = DateTime.Now
+                        Category = category,                       
                     };
 
                     foreach (var characteristic in category.CharacteristicTypes)
@@ -89,7 +88,7 @@ namespace GoldenGateShop.Data.Migrations
                 Name = "Short Description",
                 Position = ++i,
                 Category = categories,
-                FilterType = FilterType.None,
+                FilterType = FilterType.Comment,
                 CharacteristicValue = new HashSet<CharacteristicValue>()
                 {
                     new CharacteristicValue()

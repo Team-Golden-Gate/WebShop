@@ -22,7 +22,7 @@
                     Category = p.Category.Name,
                     Description = p.ProductCharacteristics
                         .AsQueryable()
-                        .Where(c => c.CharacteristicType.FilterType == FilterType.None)
+                        .Where(c => c.CharacteristicType.FilterType == FilterType.Comment)
                         .Select(c => c.CharacteristicValue.Description).FirstOrDefault()
                 };
             }

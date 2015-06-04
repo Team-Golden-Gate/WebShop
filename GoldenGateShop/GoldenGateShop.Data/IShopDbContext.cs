@@ -3,6 +3,7 @@
     using System.Data.Entity;
 
     using GoldenGateShop.Models;
+    using System.Data.Entity.Infrastructure;
 
     public interface IShopDbContext
     {
@@ -31,5 +32,9 @@
         IDbSet<Trade> Trades { get; }
 
         int SaveChanges();
+
+        DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+
+        IDbSet<T> Set<T>() where T : class;
     }
 }
