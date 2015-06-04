@@ -10,109 +10,49 @@
     using GoldenGateShop.Data;
     using GoldenGateShop.Models;
     using GoldenGateShop.Web.Areas.Administration.ViewModels.CharcacteristicTypes;
+    using System.Collections;
 
     public class CharacteristicTypesAdminController : BaseAdminController
     {
-        // GET: Administration/CharacteristicTypes
-        public ActionResult Index()
+        protected override IEnumerable GetData()
         {
-            var characteristicTypes = this.Data.CharacteristicTypes.All()
-                .OrderBy(c => c.Position)
-                .Project().To<CharacteristicTypesViewModel>()
-                .ToList();
-
-            return View(characteristicTypes);
+            return this.Data.CharacteristicTypes.All()
+                 .OrderBy(c => c.Position)
+                 .Project().To<CharacteristicTypesViewModel>();
         }
 
-        // GET: Administration/CharacteristicTypes/Details/5
-        public ActionResult Details(int? id)
+        protected override object GetById(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var characteristicType = this.Data.CharacteristicTypes.All()
+            return this.Data.CharacteristicTypes.All()
                  .Where(c => c.Id == id)
                  .Project().To<CharacteristicTypesViewModel>()
                  .FirstOrDefault();
-
-            if (characteristicType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(characteristicType);
         }
 
-        // GET: Administration/CharacteristicTypes/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Administration/CharacteristicTypes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Position,FilterType")] CharacteristicType characteristicType)
+        public ActionResult Create(CharacteristicTypesViewModel model)
         {
             if (ModelState.IsValid)
             {
-                this.Data.CharacteristicTypes.Add(characteristicType);
-                this.Data.SaveChanges();
+                this.Create<CharacteristicType>(model);
                 return RedirectToAction("Index");
             }
 
-            return View(characteristicType);
+            return View(model);
         }
 
-        // GET: Administration/CharacteristicTypes/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var characteristicType = this.Data.CharacteristicTypes.GetById(id);
-
-            if (characteristicType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(characteristicType);
-        }
-
-        // POST: Administration/CharacteristicTypes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Position,FilterType")] CharacteristicType characteristicType)
+        public ActionResult Edit(CharacteristicTypesViewModel model)
         {
             if (ModelState.IsValid)
             {
-                this.Data.CharacteristicTypes.Update(characteristicType);
-                this.Data.SaveChanges();
+                this.Edit<CharacteristicType>(model);
                 return RedirectToAction("Index");
             }
 
-            return View(characteristicType);
-        }
-
-        // GET: Administration/CharacteristicTypes/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var characteristicType = this.Data.CharacteristicTypes.GetById(id);
-            if (characteristicType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(characteristicType);
+            return View(model);
         }
 
         // POST: Administration/CharacteristicTypes/Delete/5
@@ -120,9 +60,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CharacteristicType characteristicType = this.Data.CharacteristicTypes.GetById(id);
-            this.Data.CharacteristicTypes.Delete(characteristicType);
-            this.Data.SaveChanges();
+            this.Delete<CharacteristicType>(id);
             return RedirectToAction("Index");
         }
     }

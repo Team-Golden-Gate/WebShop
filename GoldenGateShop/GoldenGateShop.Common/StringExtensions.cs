@@ -1,4 +1,4 @@
-﻿namespace GoldenGateShop.Web.Helpers
+﻿namespace GoldenGateShop.Common
 {
     using System;
     using System.Text;

@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <label for="types" class="col-sm-2 control-label">Characteristic types</label>
                     <div class="col-sm-10">
-                        @Html.DropDownList("ChracteristicTypesList", null, htmlAttributes: new { @class = "form-control", id = "types" })
+                        @Html.DropDownList("CharacteristicTypeId", null, htmlAttributes: new { @class = "form-control", id = "types" })
                     </div>
                 </div>
             </form>
@@ -41,17 +41,29 @@
     <script>
         app.activateMenu('@this.ViewBag.SubLocation');
 
+        (function () {
+            var id = $('#types').val();
+            getTable(id);
+        })()
+
+        function getTable(id) {
+            if (id == 0) {
+                return;
+            }
+
+            $.ajax({
+                url: "/Administration/CharacteristicValuesAdmin/GetCharacteristicValuesByCharacteristicType/" + id,
+                method: "GET"
+            }).success(function (data) {
+                var div = $('<div>').append(data).hide().fadeIn(500);
+                $('#table').html(div);
+            });
+        }
+
         $(function () {
             $('#types').on('change', function (ev) {
                 var id = $(ev.target).val();
-
-                $.ajax({
-                    url: "/Administration/CharacteristicValuesAdmin/GetCharacteristicValuesByCharacteristicType/" + id,
-                    method: "GET"
-                }).success(function (data) {
-                    var div = $('<div>').append(data).hide().fadeIn(500);
-                    $('#table').html(div);
-                });
+                getTable(id);
             });
         });
     </script>

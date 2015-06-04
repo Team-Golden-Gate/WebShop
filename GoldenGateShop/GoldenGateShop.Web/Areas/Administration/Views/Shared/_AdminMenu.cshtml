@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<string>
-@using GoldenGateShop.Web.Helpers
+@using GoldenGateShop.Common
 
 <div class="col-md-2">
     <ul class="nav nav-pills nav-stacked" id="admin-menu">
@@ -22,3 +22,19 @@
         }
     </ul>
 </div>
+
+
+<style>
+    .navbar-inverse {
+        background-color: yellow;
+    }
+
+        .navbar-inverse .navbar-nav > li > a {
+            color: black;
+        }
+
+            .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+                color: red;
+                background-color: transparent;
+            }
+</style>

@@ -12,19 +12,24 @@
 
         public EFRepository(DbContext context)
         {
+            if (context == null)
+            {
+                throw new ArgumentException("An instance of DbContext is required to use this repository.", "context");
+            }
+
             this.context = context;
             this.set = context.Set<T>();
         }
-        public IQueryable<T> All()
+        public virtual IQueryable<T> All()
         {
             return this.set;
         }
-        public IQueryable<T> Find(Expression<Func<T, bool>> expression)
+        public virtual IQueryable<T> Find(Expression<Func<T, bool>> expression)
         {
             return this.set.Where(expression);
         }
 
-        public T GetById(object id)
+        public virtual T GetById(object id)
         {
             return this.set.Find(id);
         }
@@ -34,30 +39,30 @@
             this.ChangeState(entity, EntityState.Added);
         }
 
-        public void AddRange(IQueryable<T> entities)
+        public virtual void AddRange(IQueryable<T> entities)
         {
             this.set.AddRange(entities);
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             this.ChangeState(entity, EntityState.Modified);
         }
 
-        public T Delete(T entity)
+        public virtual T Delete(T entity)
         {
             this.ChangeState(entity, EntityState.Deleted);
             return entity;
         }
 
-        public T Delete(object id)
+        public virtual T Delete(object id)
         {
             var entity = this.GetById(id);
             this.Delete(entity);
             return entity;
         }
 
-        public void DeleteRange(IQueryable<T> entities)
+        public virtual void DeleteRange(IQueryable<T> entities)
         {
             this.set.RemoveRange(entities);
         }
@@ -66,7 +71,7 @@
             ChangeState(entity, EntityState.Detached);
         }
 
-        public int SaveChanges()
+        public virtual int SaveChanges()
         {
             return this.context.SaveChanges();
         }
@@ -80,6 +85,11 @@
             }
 
             entry.State = state;
+        }
+
+        public void Dispose()
+        {
+            this.context.Dispose();
         }
     }
 }

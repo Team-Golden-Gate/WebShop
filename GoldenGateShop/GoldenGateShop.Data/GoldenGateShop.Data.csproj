@@ -54,7 +54,9 @@
   <ItemGroup>
     <Compile Include="IShopDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Repositories\DeletableEntityRepository.cs" />
     <Compile Include="Repositories\EFRepository.cs" />
+    <Compile Include="Repositories\IDeletableEntityRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="ShopDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,6 +64,10 @@
     <Compile Include="UnitOfWork\ShopData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GoldenGateShop.Contracts\GoldenGateShop.Contracts.csproj">
+      <Project>{3f1a2030-10a1-4518-b47a-2422080fac3d}</Project>
+      <Name>GoldenGateShop.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GoldenGateShop.Models\GoldenGateShop.Models.csproj">
       <Project>{b62238d0-e9ed-4a0b-890a-12f6d1323af2}</Project>
       <Name>GoldenGateShop.Models</Name>

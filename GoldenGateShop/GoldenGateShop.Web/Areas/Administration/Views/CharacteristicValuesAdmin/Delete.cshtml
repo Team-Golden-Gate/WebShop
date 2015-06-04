@@ -1,4 +1,4 @@
-﻿@model GoldenGateShop.Models.CharacteristicValue
+﻿@model GoldenGateShop.Web.Areas.Administration.ViewModels.CharacteristicValues.CharacteristicValuesViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -21,11 +21,11 @@
                 <hr />
                 <dl class="dl-horizontal">
                     <dt>
-                        @Html.DisplayNameFor(model => model.CharacteristicType.Name)
+                        @Html.DisplayNameFor(model => model.CharacteristicTypeName)
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.CharacteristicType.Name)
+                        @Html.DisplayFor(model => model.CharacteristicTypeName)
                     </dd>
 
                     <dt>

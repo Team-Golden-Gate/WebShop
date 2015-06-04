@@ -1,10 +1,14 @@
 ﻿namespace GoldenGateShop.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class CharacteristicType
+    using GoldenGateShop.Contracts;
+
+
+    public class CharacteristicType : IAuditInfo, IDeletableEntity
     {
         private ICollection<Category> category;
         private ICollection<ProductCharacteristic> productCharacteristics;
@@ -20,12 +24,13 @@
         public int Id { get; set; }
 
         [Required]
-        [Index(IsUnique = true)]
         [StringLength(50)]
         public string Name { get; set; }
 
+        [Required]
         public int Position { get; set; }
 
+        [Required]
         public FilterType FilterType { get; set; }
 
         public virtual ICollection<Category> Category
@@ -45,5 +50,19 @@
             get { return this.productCharacteristics; }
             set { this.productCharacteristics = value; }
         }
+
+        [Column(TypeName = "datetime2")]
+        public DateTime CreatedOn { get; set; }
+
+        public bool PreserveCreatedOn { get; set; }
+
+        [Column(TypeName = "datetime2")]
+        public DateTime? ModifiedOn { get; set; }
+
+        [Index]
+        public bool IsDeleted { get; set; }
+
+        [Column(TypeName = "datetime2")]
+        public DateTime? DeletedOn { get; set; }
     }
 }

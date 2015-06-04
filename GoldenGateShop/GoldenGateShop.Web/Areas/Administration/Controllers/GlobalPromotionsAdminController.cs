@@ -34,13 +34,7 @@ namespace GoldenGateShop.Web.Areas.Administration.Controllers
                 return HttpNotFound();
             }
             return View(globalPromotion);
-        }
-
-        // GET: Administration/GlobalPromotions/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        }        
 
         // POST: Administration/GlobalPromotions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

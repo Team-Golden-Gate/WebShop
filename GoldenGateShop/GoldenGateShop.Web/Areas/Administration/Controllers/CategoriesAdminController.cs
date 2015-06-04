@@ -1,108 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using GoldenGateShop.Data;
-using GoldenGateShop.Models;
-
-namespace GoldenGateShop.Web.Areas.Administration.Controllers
+﻿namespace GoldenGateShop.Web.Areas.Administration.Controllers
 {
+    using System.Collections;
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+
+    using AutoMapper.QueryableExtensions;
+
+    using GoldenGateShop.Data;
+    using GoldenGateShop.Models;
+    using GoldenGateShop.Web.Areas.Administration.ViewModels.Categories;
+
     public class CategoriesAdminController : BaseAdminController
     {
-        private ShopDbContext db = new ShopDbContext();
-
-        // GET: Administration/Categories
-        public ActionResult Index()
+        protected override IEnumerable GetData()
         {
-            return View(db.Categories.ToList());
+            return this.Data.Categories.All()
+                .OrderBy(c => c.Position)
+                .Project().To<CategoriesViewModel>();
         }
 
-        // GET: Administration/Categories/Details/5
-        public ActionResult Details(int? id)
+        protected override object GetById(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
+            return this.Data.Categories.All()
+                .Where(c => c.Id == id.Value)
+                .Project().To<CategoriesViewModel>()
+                .FirstOrDefault();
         }
 
-        // GET: Administration/Categories/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Administration/Categories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Position")] Category category)
+        public ActionResult Create(CategoriesViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model != null)
             {
-                db.Categories.Add(category);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                this.Create<Category>(model);
+                return this.RedirectToAction("Index");
             }
 
-            return View(category);
+            return this.View(model);
         }
 
-        // GET: Administration/Categories/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
-        }
-
-        // POST: Administration/Categories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Position")] Category category)
+        public ActionResult Edit(CategoriesViewModel model)
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid && model != null)
             {
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                this.Edit<Category>(model);
+                return this.RedirectToAction("Index");
             }
-            return View(category);
-        }
-
-        // GET: Administration/Categories/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
+            return this.View(model);
         }
 
         // POST: Administration/Categories/Delete/5
@@ -110,19 +58,8 @@ namespace GoldenGateShop.Web.Areas.Administration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            this.Delete<Category>(id);
+            return this.RedirectToAction("Index");
         }
     }
 }

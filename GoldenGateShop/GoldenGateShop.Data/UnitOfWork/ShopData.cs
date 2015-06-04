@@ -6,6 +6,7 @@
 
     using GoldenGateShop.Data.Repositories;
     using GoldenGateShop.Models;
+    using GoldenGateShop.Contracts;
 
     public class ShopData : IShopData
     {
@@ -22,12 +23,19 @@
             this.context = context;
             this.repositories = new Dictionary<Type, object>();
         }
+        public IShopDbContext Context
+        {
+            get
+            {
+                return this.context as IShopDbContext;
+            }
+        }
 
         public IRepository<User> Users
         {
             get
             {
-                return this.GetRepository<User>();
+                return this.GetDeletableEntityRepository<User>();
             }
         }
 
@@ -43,7 +51,7 @@
         {
             get
             {
-                return this.GetRepository<Category>();
+                return this.GetDeletableEntityRepository<Category>();
             }
         }
 
@@ -51,7 +59,7 @@
         {
             get
             {
-                return this.GetRepository<CharacteristicType>();
+                return this.GetDeletableEntityRepository<CharacteristicType>();
             }
         }
 
@@ -59,7 +67,7 @@
         {
             get
             {
-                return this.GetRepository<CharacteristicValue>();
+                return this.GetDeletableEntityRepository<CharacteristicValue>();
             }
         }
 
@@ -92,7 +100,7 @@
         {
             get
             {
-                return this.GetRepository<Product>();
+                return this.GetDeletableEntityRepository<Product>();
             }
         }
 
@@ -118,13 +126,13 @@
             {
                 return this.GetRepository<State>();
             }
-        }       
+        }
 
         public IRepository<Trade> Trades
         {
             get
             {
-                return this.GetRepository<Trade>();
+                return this.GetDeletableEntityRepository<Trade>();
             }
         }
 
@@ -132,6 +140,23 @@
         {
             return this.context.SaveChanges();
         }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (this.context != null)
+                {
+                    this.context.Dispose();
+                }
+            }
+        }
+
 
         private IRepository<T> GetRepository<T>() where T : class
         {
@@ -145,6 +170,17 @@
             }
 
             return (IRepository<T>)this.repositories[typeOfRepository];
+        }
+
+        private IDeletableEntityRepository<T> GetDeletableEntityRepository<T>() where T : class, IDeletableEntity
+        {
+            if (!this.repositories.ContainsKey(typeof(T)))
+            {
+                var type = typeof(DeletableEntityRepository<T>);
+                this.repositories.Add(typeof(T), Activator.CreateInstance(type, this.context));
+            }
+
+            return (IDeletableEntityRepository<T>)this.repositories[typeof(T)];
         }
     }
 }

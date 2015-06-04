@@ -6,6 +6,8 @@ namespace GoldenGateShop.Data.UnitOfWork
 
     public interface IShopData
     {
+        IShopDbContext Context { get; }
+
         IRepository<User> Users { get; }
 
         IRepository<Cart> Carts { get; }
@@ -15,7 +17,6 @@ namespace GoldenGateShop.Data.UnitOfWork
         IRepository<CharacteristicType> CharacteristicTypes { get; }
 
         IRepository<CharacteristicValue> CharacteristicValues { get; }
-
 
         IRepository<GlobalPromotion> GlobalPromotions { get; }
 
@@ -34,5 +35,7 @@ namespace GoldenGateShop.Data.UnitOfWork
         IRepository<Trade> Trades { get; }
 
         int SaveChanges();
+
+        void Dispose();
     }
 }
