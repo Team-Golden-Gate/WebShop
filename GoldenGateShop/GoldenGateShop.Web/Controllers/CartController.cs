@@ -12,6 +12,7 @@
     using GoldenGateShop.Web.ViewModels.Categories;
     using GoldenGateShop.Web.BindingModels;
     using GoldenGateShop.Models;
+    using System.Web.UI;
 
     public class CartController : BaseController
     {
@@ -26,10 +27,18 @@
             Response.Redirect(Request.UrlReferrer.ToString());
         }
 
+        public void Remove(Product product)
+        {
+            var cart = (List<Product>)Session["cart"];
+            cart.Remove(product);
+            Response.Redirect(Request.UrlReferrer.ToString());
+        }
+
         public ActionResult Index()
         {
             var products = (List<Product>)this.Session["cart"];
-            //products = products.GroupBy(p => p.Id);
+            //products = products.OrderBy(p => p.Id);
+            var totalPrice = products.Sum(p => p.Price);
             return this.View(products);
         }
 
@@ -39,8 +48,12 @@
             foreach (var product in products)
             {
                 var order = new Order();
+                order.Product = product;
+                order.OrderedOn = DateTime.Now;
+                order.TotalPrice = product.Price;
                 this.Data.Orders.Add(order);
             }
+            Redirect("home");
         }
     }
 }

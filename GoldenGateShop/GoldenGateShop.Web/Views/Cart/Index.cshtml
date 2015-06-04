@@ -1,8 +1,40 @@
-﻿@foreach (var item in this.Model)
-{
-    <div>
-        <h2>
-            @item.Price
-        </h2>
-    </div>
-}
+﻿<div>
+    <table>
+        <tr>
+            <td>
+                Item
+            </td>
+            <td>
+                Price
+            </td>
+        </tr>
+        @foreach (var item in this.Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Price
+                </td>
+                <td>
+                    <button class="btn btn-default" onclick="location.href='@Url.Action("Remove", "Cart", item, null )'">
+                        <span>Remove from Cart</span>
+                    </button>
+                </td>
+            </tr>
+        }
+        <tr>
+
+            <td>
+                Total Price:
+            </td>
+            <td>   
+                
+            </td>
+        </tr>
+    </table>
+    <button class="btn btn-default" onclick="location.href='@Url.Action("Buy", "Cart")'">
+        <span>Buy</span>
+    </button>
+</div>
